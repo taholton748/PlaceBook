@@ -1,0 +1,26 @@
+{
+  "name": "react-apollo-graphql-mongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run dev\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbohde/react-apollo-graphql-mongo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbohde/react-apollo-graphql-mongo/issues"
+  },
+  "homepage": "https://github.com/jbohde/react-apollo-graphql-mongo#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
