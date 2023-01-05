@@ -22,5 +22,9 @@
   "homepage": "https://github.com/jbohde/react-apollo-graphql-mongo#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.4"
   }
 }
