@@ -3,7 +3,7 @@ const omit = require('lodash.omit');
 
 const { User, Post } = require('../models');
 
-const { signToken, authMiddleware } = require('../utils/auth');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -18,11 +18,14 @@ const resolvers = {
       const params = username ? { username } : {};
       return Post.find(params).sort({ createdAt: -1 });
     },
-    getUsers: async () => User.find()
-      .select('-__v -password')
-      .populate('friends')
-      // make sure syntax is correct so that a user request populates with posts
-      .populate('posts'),
+    getUsers: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      User.find(params)
+        .select('-__v -password')
+        .populate('friends')
+        // make sure syntax is correct so that a user request populates with posts
+        .populate('post');
+    },
   },
   Mutation: {
     createUser: async (parent, args) => {
@@ -61,18 +64,23 @@ const resolvers = {
 
       return { token, user };
     },
-    createPost: async (_, { title, content, imageUrl }, context) => {
-      const user = authMiddleware(context);
-      const newPost = new Post({
-        user: user.id,
-        username: user.username,
-        title,
-        content,
-        imageUrl,
-        dateCreated: new Date().toISOString(),
-      });
-      const post = await newPost.save();
-      return post;
+    // eslint-disable-next-line object-curly-newline
+    createPost: async (parent, args, context) => {
+      if (context.user) {
+        // const user = authMiddleware(context);
+        const newPost = new Post({ ...args, username: context.user.username });
+        const post = await newPost.save();
+
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { posts: post._id } },
+          { new: true }
+        );
+
+        return post;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
   }
 };
