@@ -1,9 +1,9 @@
 const { AuthenticationError } = require('apollo-server-express');
 const omit = require('lodash.omit');
 
-const { User } = require('../models');
+const { User, Post } = require('../models');
 
-const { signToken } = require('../utils/auth');
+const { signToken, authMiddleware } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -13,7 +13,16 @@ const resolvers = {
         return user;
       }
       throw new AuthenticationError('Not logged in');
-    }
+    },
+    getPosts: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Post.find(params).sort({ createdAt: -1 });
+    },
+    getUsers: async () => User.find()
+      .select('-__v -password')
+      .populate('friends')
+      // make sure syntax is correct so that a user request populates with posts
+      .populate('posts'),
   },
   Mutation: {
     createUser: async (parent, args) => {
@@ -51,7 +60,20 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    }
+    },
+    createPost: async (_, { title, content, imageUrl }, context) => {
+      const user = authMiddleware(context);
+      const newPost = new Post({
+        user: user.id,
+        username: user.username,
+        title,
+        content,
+        imageUrl,
+        dateCreated: new Date().toISOString(),
+      });
+      const post = await newPost.save();
+      return post;
+    },
   }
 };
 
