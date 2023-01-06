@@ -47,3 +47,102 @@ mutation deleteUser {
   }
 }
 `;
+
+const CREATE_POST = gql`
+  mutation createPost($title: String!, $content: String!, $imageUrl: String) {
+    createPost(title: $title, content: $content, imageUrl: $imageUrl, location: $location) {
+      imageUrl
+      title
+      content
+      location
+    }
+  }
+`;
+
+const DELETE_POST = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
+  }
+`;
+
+const GET_POST = gql`
+  query getPost($postId: ID!) {
+    getPost(postId: $postId) {
+      id
+      imageUrl
+      location
+      title
+      content
+      dateCreated
+      username
+      postLikes {
+        id
+        username
+        dateCreated
+      }
+      postLikeCount
+      comments {
+        id
+        content
+        dateCreated
+        username
+        commentLikes {
+          id
+          username
+          dateCreated
+        }
+        commentLikeCount
+      }
+    }
+  }
+`;
+
+const GET_POSTS = gql`
+  {
+    getPosts {
+      id
+      imageUrl
+      location
+      title
+      content
+      dateCreated
+      username
+      postLikes {
+        id
+        username
+        dateCreated
+      }
+      postLikeCount
+      commentCount
+      comments {
+        id
+        content
+        dateCreated
+        username
+        commentLikes {
+          id
+          username
+          dateCreated
+        }
+        commentLikeCount
+      }
+    }
+  }
+`;
+
+const LIKE_POST = gql`
+  mutation likePost($postId: ID!) {
+    likePost(postId: $postId) {
+      id
+      postLikes {
+        id
+        username
+        dateCreated
+      }
+      postLikeCount
+    }
+  }
+`;
+
+
+
