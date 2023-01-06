@@ -48,7 +48,7 @@ mutation deleteUser {
 }
 `;
 
-const CREATE_POST = gql`
+export const CREATE_POST = gql`
   mutation createPost($title: String!, $content: String!, $imageUrl: String) {
     createPost(title: $title, content: $content, imageUrl: $imageUrl, location: $location) {
       imageUrl
@@ -59,13 +59,13 @@ const CREATE_POST = gql`
   }
 `;
 
-const DELETE_POST = gql`
+export const DELETE_POST = gql`
   mutation deletePost($postId: ID!) {
     deletePost(postId: $postId)
   }
 `;
 
-const GET_POST = gql`
+export const GET_POST = gql`
   query getPost($postId: ID!) {
     getPost(postId: $postId) {
       id
@@ -97,7 +97,7 @@ const GET_POST = gql`
   }
 `;
 
-const GET_POSTS = gql`
+export const GET_POSTS = gql`
   {
     getPosts {
       id
@@ -130,7 +130,7 @@ const GET_POSTS = gql`
   }
 `;
 
-const LIKE_POST = gql`
+export const LIKE_POST = gql`
   mutation likePost($postId: ID!) {
     likePost(postId: $postId) {
       id
@@ -143,6 +143,3 @@ const LIKE_POST = gql`
     }
   }
 `;
-
-
-
