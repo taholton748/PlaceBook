@@ -1,39 +1,35 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
+
+// TODO: add comment model so the below can be imported
+// const commentSchema = require('./Comment');
+
+const dateFormat = require('../utils/dateFormat');
 
 const postSchema = new Schema({
-  username: { type: String, required: true },
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  imageUrl: { type: String },
+  title: { type: String, required: 'You must provide a title!' },
+  description: { type: String, required: 'You must add a description!' },
+  photos: { type: String },
   location: { type: String },
   postLikes: [
     {
       username: { type: String, required: true },
-      dateCreated: { type: String, required: true },
     },
   ],
-  comments: [
-    {
-      username: { type: String, required: true },
-      content: { type: String, required: true },
-      dateCreated: { type: String, required: true },
-      commentLikes: [
-        {
-          username: { type: String, required: true },
-          dateCreated: { type: String, required: true },
-        },
-      ],
-    },
-  ],
-  dateCreated: { type: String, required: true },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+  // need to add comment model so this can be used
+  // comments: [commentSchema],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: timestamp => dateFormat(timestamp)
   },
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User',
+  // },
 });
 
-const Post = mongoose.model("Post", postSchema);
+const Post = mongoose.model('Post', postSchema);
 
-export default Post;
+module.exports = Post;
