@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const { AuthenticationError } = require('apollo-server-express');
 const omit = require('lodash.omit');
 
@@ -9,7 +10,11 @@ const resolvers = {
   Query: {
     getCurrentUser: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).select('-__v -password');
+        const user = await User.findOne({ _id: context.user._id })
+          .select('-__v -password')
+          .populate('posts')
+          .populate('friends');
+
         return user;
       }
       throw new AuthenticationError('Not logged in');
@@ -18,6 +23,7 @@ const resolvers = {
       const params = username ? { username } : {};
       return Post.find(params).sort({ createdAt: -1 });
     },
+    getPost: async (parent, { _id }) => Post.findOne({ _id }),
     getUsers: async (parent, { username }) => {
       const params = username ? { username } : {};
       User.find(params)

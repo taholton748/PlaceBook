@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
@@ -11,10 +12,9 @@ type Comment {
 type Post {
   _id: ID
   username: String
-  firstName: String
-  lastName: String
   photos: String
-  description: String
+  title: String
+  postBody: String
   rating: Int
   likes: Int
   comments: [Comment]
@@ -27,6 +27,7 @@ type User {
   lastName: String
   email: String
   isAuthenticated: Boolean
+  posts: [Post]
 }
 type Auth {
   token: ID
@@ -35,6 +36,7 @@ type Auth {
 type Query {
   getCurrentUser: User
   getPosts(username: String): [Post]
+  getPost(_id: ID): Post
   getUsers(username: String): [User]
 }
 type Mutation {
