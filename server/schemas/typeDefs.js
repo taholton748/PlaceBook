@@ -18,7 +18,7 @@ type Post {
 type Comment {
   _id: ID
   commentBody: String
-  username: String
+  userId: ID
   createdAt: String
 }
 type User {
