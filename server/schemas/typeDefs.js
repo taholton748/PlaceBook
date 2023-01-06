@@ -2,27 +2,27 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-type Comment {
-  _id: ID
-  commentBody: String
-  username: String
-  createdAt: String
-
-}
 type Post {
   _id: ID
-  username: String
+  userId: String
+  firstName: String
+  lastName: String
   photos: String
   title: String
-  postBody: String
+  description: String
   rating: Int
   likes: Int
   comments: [Comment]
   createdAt: String
 }
+type Comment {
+  _id: ID
+  commentBody: String
+  username: String
+  createdAt: String
+}
 type User {
   _id: ID
-  username: String
   firstName: String
   lastName: String
   email: String
@@ -35,16 +35,16 @@ type Auth {
 }
 type Query {
   getCurrentUser: User
-  getPosts(username: String): [Post]
-  getPost(_id: ID): Post
-  getUsers(username: String): [User]
+  getPosts(userId: ID): [Post]
+  getPost(postId: ID): Post
+  getUsers(userId: ID): [User]
 }
 type Mutation {
-  createUser(username: String!, firstName: String!, lastName: String!, email: String!, password: String!): Auth
-  updateUser(username: String!, firstName: String!, lastName: String!, email: String!): User
+  createUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+  updateUser(firstName: String!, lastName: String!, email: String!): User
   deleteUser: User
   login(email: String!, password: String!): Auth
-  createPost(title: String!, description: String!, photos: String!, rating: Int!): User
+  createPost(title: String!, description: String!, photos: String!, rating: Int!): Post
 }
 `;
 

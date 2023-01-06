@@ -19,13 +19,16 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-    getPosts: async (parent, { username }) => {
-      const params = username ? { username } : {};
+    // this query gets all posts, or posts by certain users (search by userId)
+    getPosts: async (parent, { userId }) => {
+      const params = userId ? { userId } : {};
       return Post.find(params).sort({ createdAt: -1 });
     },
+    // get single post by id
     getPost: async (parent, { _id }) => Post.findOne({ _id }),
-    getUsers: async (parent, { username }) => {
-      const params = username ? { username } : {};
+    // get all users OR user by ID
+    getUsers: async (parent, { userId }) => {
+      const params = userId ? { userId } : {};
       User.find(params)
         .select('-__v -password')
         .populate('friends')
