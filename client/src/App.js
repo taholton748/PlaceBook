@@ -23,6 +23,8 @@ import NotFound from './pages/NotFound';
 
 import './App.css';
 
+// import ButtonExampleButton from './Btn';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -49,6 +51,8 @@ function App() {
         <Router>
           <CurrentUserContextProvider>
             <Navigation />
+            {/* <ButtonExampleButton />
+            <button type="button" className="ui button">Btn with Semantic-UI</button> */}
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />

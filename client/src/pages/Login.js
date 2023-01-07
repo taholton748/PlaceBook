@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../components/Images/PlaceBook.png';
+import '../App.css';
 
 import { LOGIN } from '../graphql/mutations';
 
@@ -40,12 +42,13 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="background">
       {error ? (
         <div>
           <p className="error-text">The provided credentials are incorrect</p>
         </div>
       ) : null}
+      <img src={logo} alt="logo" className="App-logo-small" />
       <form onSubmit={handleFormSubmit}>
         <h2>Login</h2>
         <label htmlFor="email">

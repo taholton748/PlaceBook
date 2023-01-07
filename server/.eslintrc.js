@@ -27,7 +27,6 @@ module.exports = {
       'error',
       'always'
     ],
-    'no-underscore-dangle': 0,
     'object-curly-spacing': [
       'error',
       'always'
@@ -43,6 +42,5 @@ module.exports = {
       }
     ],
     'func-names': 0,
-    'linebreak-style': 0
   }
 };

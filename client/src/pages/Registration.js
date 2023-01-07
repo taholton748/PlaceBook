@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { REGISTER_USER } from '../graphql/mutations';
 
 import { useCurrentUserContext } from '../context/currentUser';
+import logo from '../components/Images/PlaceBook.png';
+import '../App.css';
 
 export default function Registration() {
   const { loginUser } = useCurrentUserContext();
@@ -42,12 +44,13 @@ export default function Registration() {
   };
 
   return (
-    <div>
+    <div className="background">
       {error ? (
         <div>
           <p className="error-text">The provided credentials are incorrect</p>
         </div>
       ) : null}
+      <img src={logo} alt="logo" className="App-logo-small" />
       <form onSubmit={handleFormSubmit}>
         <h2>Register</h2>
         <label htmlFor="firstName">
