@@ -61,7 +61,7 @@ const SinglePost = () => {
         meta="created at (post.createdAt)"
         description="this is where the description will go (post.postBody)"
         extra={extra}
-        className="flex centered"
+        className="flex fluid"
       />
     </div>
   );
