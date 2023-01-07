@@ -77,7 +77,7 @@ const resolvers = {
     createPost: async (parent, args, context) => {
       if (context.user) {
         // const user = authMiddleware(context);
-        const newPost = new Post({ ...args, username: context.user.username });
+        const newPost = new Post({ ...args, userId: context.user._id });
         const post = await newPost.save();
 
         await User.findByIdAndUpdate(

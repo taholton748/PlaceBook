@@ -31,8 +31,8 @@ export default function Registration() {
       loginUser(user, token);
       navigate('/dashboard');
     } catch (e) {
-    // eslint-disable-next-line no-console
-      console.log(e);
+      // eslint-disable-next-line no-console
+      console.log(e, JSON.stringify(error, null, 2));
     }
   };
 
@@ -56,7 +56,7 @@ export default function Registration() {
             type="text"
             id="firstName"
             name="firstName"
-            value={formState.firstName}
+            value={formState.firstName || ''}
             onChange={handleChange}
           />
         </label>
@@ -66,7 +66,7 @@ export default function Registration() {
             type="text"
             id="lastName"
             name="lastName"
-            value={formState.lastName}
+            value={formState.lastName || ''}
             onChange={handleChange}
           />
         </label>
@@ -76,7 +76,7 @@ export default function Registration() {
             placeholder="youremail@test.com"
             name="email"
             type="email"
-            value={formState.email}
+            value={formState.email || ''}
             onChange={handleChange}
           />
         </label>
@@ -86,7 +86,7 @@ export default function Registration() {
             placeholder="******"
             name="password"
             type="password"
-            value={formState.password}
+            value={formState.password || ''}
             onChange={handleChange}
           />
         </label>
