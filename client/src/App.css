@@ -36,6 +36,7 @@
 .background {
   background-image: url('./components/Images/home-background.jpeg') !important;
     background-size: cover !important;
+    padding: 2rem;
 }
 
 .top-quote {
