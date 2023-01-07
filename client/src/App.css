@@ -3,13 +3,22 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 110vmin;
   pointer-events: none;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.homeTitle {
+  font-family: cursive;
+  text-align: center;
+  margin-top: 30px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    /* animation: App-logo-spin infinite 20s linear; */
   }
 }
 

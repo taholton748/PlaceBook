@@ -8,9 +8,9 @@ body {
   font-family: Helvetica, Arial, Sans-Serif;
 }
 
-body h2 {
+/* body h2 {
   text-align: center;
-}
+} */
 
 nav {
   display: flex;
