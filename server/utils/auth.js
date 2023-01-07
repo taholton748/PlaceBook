@@ -32,7 +32,6 @@ module.exports = {
   },
   signToken({ firstName, email, _id }) {
     const payload = { firstName, email, _id };
-
     return jwt.sign(
       { data: payload },
       secret,

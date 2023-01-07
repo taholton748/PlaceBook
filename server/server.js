@@ -1,7 +1,9 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 
-require('dotenv').config();
+const path = require('path');
+
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const { typeDefs, resolvers } = require('./schemas');
 
@@ -32,4 +34,4 @@ const startApolloServer = async () => {
   });
 };
 
-startApolloServer();
+startApolloServer(typeDefs, resolvers);
