@@ -10,6 +10,8 @@ export default function Registration() {
   const { loginUser } = useCurrentUserContext();
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: ''
   });
@@ -56,7 +58,7 @@ export default function Registration() {
             type="text"
             id="firstName"
             name="firstName"
-            value={formState.firstName || ''}
+            value={formState.firstName}
             onChange={handleChange}
           />
         </label>
@@ -66,7 +68,7 @@ export default function Registration() {
             type="text"
             id="lastName"
             name="lastName"
-            value={formState.lastName || ''}
+            value={formState.lastName}
             onChange={handleChange}
           />
         </label>
@@ -76,7 +78,7 @@ export default function Registration() {
             placeholder="youremail@test.com"
             name="email"
             type="email"
-            value={formState.email || ''}
+            value={formState.email}
             onChange={handleChange}
           />
         </label>
@@ -86,7 +88,7 @@ export default function Registration() {
             placeholder="******"
             name="password"
             type="password"
-            value={formState.password || ''}
+            value={formState.password}
             onChange={handleChange}
           />
         </label>

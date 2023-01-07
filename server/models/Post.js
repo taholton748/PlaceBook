@@ -14,7 +14,7 @@ const postSchema = new Schema({
   location: { type: String },
   postLikes: [
     {
-      username: { type: String, required: true },
+      userId: { type: String, required: true },
     },
   ],
   // need to add comment model so this can be used
