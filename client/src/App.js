@@ -5,16 +5,13 @@ import {
   createHttpLink
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 
 import { CurrentUserContextProvider } from './context';
 
 import Navigation from './components/Navigation';
+import SinglePost from './pages/SinglePost';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
@@ -57,6 +54,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Registration />} />
+              <Route path="/SinglePost" element={<SinglePost />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
