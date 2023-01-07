@@ -1,46 +1,44 @@
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
-const bcrypt = require('bcrypt');
+why
+const dateFormat = require('../utils/dateFormat');
 
-const userSchema = new Schema({
-  firstName: {
+const postSchema = new Schema({
+  title: {
     type: String,
-    required: true,
-    trim: true
+    required: 'You must provide a title!'
   },
-  lastName: {
+  userId: {
     type: String,
-    required: true,
-    trim: true
+    default: req.user.username,
+    required: true
   },
-  email: {
+  discreption: {
     type: String,
-    required: true,
-    unique: true
+    required: "You must provide a discreption!"
   },
-  password: {
+  photo: {
     type: String,
-    required: true,
-    minlength: 7
   },
-});
+  location: {
+    type: String,
+  },
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
+  }],
+  postLikes: [{
+    type: Number,
+    ref: 'User'
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: timestamp => dateFormat(timestamp)
 
-// set up pre-save middleware to create password
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
-  next();
 });
 
-// compare the incoming password with the hashed password
-userSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
+const Post = mongoose.model('Post', postSchema);
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = Post;
