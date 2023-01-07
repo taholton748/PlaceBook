@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="background">
       {error ? (
         <div>
           <p className="error-text">The provided credentials are incorrect</p>
