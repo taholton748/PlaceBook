@@ -143,6 +143,3 @@ const LIKE_POST = gql`
     }
   }
 `;
-
-
-
