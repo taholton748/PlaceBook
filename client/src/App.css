@@ -33,6 +33,11 @@
     background-size: cover !important;
 }
 
+.background {
+  background-image: url('./components/Images/home-background.jpeg') !important;
+    background-size: cover !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     /* animation: App-logo-spin infinite 20s linear; */
