@@ -11,19 +11,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jbohde/react-apollo-graphql-mongo.git"
+    "url": "git+https://github.com/taholton748/PlaceBook.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jbohde/react-apollo-graphql-mongo/issues"
+    "url": "https://github.com/taholton748/PlaceBook/issues"
   },
-  "homepage": "https://github.com/jbohde/react-apollo-graphql-mongo#readme",
+  "homepage": "https://github.com/taholton748/PlaceBook#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "bootstrap": "^5.2.3",
+    "framer-motion": "^8.2.4",
+    "react-bootstrap": "^2.7.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4"
   }

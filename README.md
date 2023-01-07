@@ -36,22 +36,22 @@
 
   GitHub: https://github.com/tguy5837
   
-  E-mail: email@email.com <hr>
+  E-mail: tguy5837@gmail.com <hr>
   <strong>Alex Defrese</strong>
 
   GitHub: https://github.com/alexdefrese
   
-  E-mail: email@email.com <hr>
+  E-mail: aidandefrese@gmail.com <hr>
   <strong>Paul Todd</strong>
 
   GitHub: https://github.com/ptodd15
   
-  E-mail: email@email.com <hr>
+  E-mail: ptodd00@gmail.com <hr>
   <strong>Jonathan Keku</strong>
 
   GitHub: https://github.com/jkeku2
   
-  E-mail: email@email.com <hr>
+  E-mail: jkeku@fetrigon.com <hr>
   
   ## License
   Licensed under the [MIT](https://choosealicense.com/licenses/mit/) license.
