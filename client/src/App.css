@@ -3,17 +3,27 @@
 }
 
 .App-logo {
-  height: 110vmin;
+  height: 80vmin;
   pointer-events: none;
   display:block;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left:400px;
 }
 
-.homeTitle {
+.homeTextLeft {
   font-family: cursive;
+  font-size:45px;
+  text-align: left;
+}
+
+.homeTextCenter {
+  font-family: cursive;
+  font-size:38px;
   text-align: center;
-  margin-top: 30px;
+}
+
+.homeBody {
+  background-image: url('./components/Images/home-background2.webp') !important;
+    background-size: cover !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
