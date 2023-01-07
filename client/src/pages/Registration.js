@@ -12,6 +12,8 @@ export default function Registration() {
   const { loginUser } = useCurrentUserContext();
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: ''
   });
@@ -33,8 +35,8 @@ export default function Registration() {
       loginUser(user, token);
       navigate('/dashboard');
     } catch (e) {
-    // eslint-disable-next-line no-console
-      console.log(e);
+      // eslint-disable-next-line no-console
+      console.log(e, JSON.stringify(error, null, 2));
     }
   };
 

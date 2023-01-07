@@ -49,8 +49,8 @@ mutation deleteUser {
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost($title: String!, $content: String!, $imageUrl: String) {
-    createPost(title: $title, content: $content, imageUrl: $imageUrl, location: $location) {
+  mutation createPost($title: String!, $postBody: String!, $imageUrl: String) {
+    createPost(title: $title, content: $postBody, imageUrl: $imageUrl, location: $location) {
       imageUrl
       title
       content
@@ -73,23 +73,23 @@ export const GET_POST = gql`
       location
       title
       content
-      dateCreated
-      username
+      createdAt
+      userId
       postLikes {
         id
-        username
-        dateCreated
+        userId
+        createdAt
       }
       postLikeCount
       comments {
         id
         content
-        dateCreated
-        username
+        createdAt
+        userId
         commentLikes {
           id
-          username
-          dateCreated
+          userId
+          createdAt
         }
         commentLikeCount
       }
@@ -105,24 +105,24 @@ export const GET_POSTS = gql`
       location
       title
       content
-      dateCreated
-      username
+      createdAt
+      userId
       postLikes {
         id
-        username
-        dateCreated
+        userId
+        createdAt
       }
       postLikeCount
       commentCount
       comments {
         id
         content
-        dateCreated
-        username
+        createdAt
+        userId
         commentLikes {
           id
-          username
-          dateCreated
+          userId
+          createdAt
         }
         commentLikeCount
       }
@@ -136,8 +136,8 @@ export const LIKE_POST = gql`
       id
       postLikes {
         id
-        username
-        dateCreated
+        userId
+        createdAt
       }
       postLikeCount
     }
