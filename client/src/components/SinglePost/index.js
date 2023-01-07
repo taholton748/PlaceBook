@@ -9,7 +9,7 @@ import {
   Placeholder,
   Rating
 } from 'semantic-ui-react';
-import { QUERY_CURRENT_USER } from '../graphql/queries';
+import { QUERY_CURRENT_USER } from '../../graphql/queries';
 
 // eslint-disable-next-line react/function-component-definition
 const SinglePost = () => {
@@ -54,18 +54,16 @@ const SinglePost = () => {
     return <Icon loading name="spinner" size="large" />;
   }
   return (
-    <Card
-      image={Placeholder.Image}
-      header="Test Post (post.title)"
-      meta="created at (post.createdAt)"
-      description="this is where the description will go (post.postBody)"
-      extra={extra}
-      className="flex fluid"
-      style={{
-        paddingLeft: '10%',
-        paddingRight: '10%'
-      }}
-    />
+    <div>
+      <Card
+        image={Placeholder.Image}
+        header="Test Post (post.title)"
+        meta="created at (post.createdAt)"
+        description="this is where the description will go (post.postBody)"
+        extra={extra}
+        className="flex centered"
+      />
+    </div>
   );
 };
 
