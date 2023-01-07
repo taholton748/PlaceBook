@@ -3,13 +3,32 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 80vmin;
   pointer-events: none;
+  display:block;
+  margin-left:400px;
+}
+
+.homeTextLeft {
+  font-family: cursive;
+  font-size:45px;
+  text-align: left;
+}
+
+.homeTextCenter {
+  font-family: cursive;
+  font-size:38px;
+  text-align: center;
+}
+
+.homeBody {
+  background-image: url('./components/Images/home-background2.webp') !important;
+    background-size: cover !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    /* animation: App-logo-spin infinite 20s linear; */
   }
 }
 
