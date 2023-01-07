@@ -9,6 +9,13 @@
   margin-left:400px;
 }
 
+.App-logo-small {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 50%;
+}
+
 .homeTextLeft {
   font-family: cursive;
   font-size:45px;
