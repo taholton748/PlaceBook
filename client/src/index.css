@@ -3,9 +3,23 @@ html, body {
   height: 100%;
 }
 
+body > #root > div {
+  height: 100vh;
+}
+
 body {
   margin: 0;
   font-family: Helvetica, Arial, Sans-Serif;
+}
+
+.card {
+  margin: auto;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  flex-direction: column;
+  max-width: 30rem;
+  padding: 2rem;
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 /* body h2 {
@@ -42,7 +56,7 @@ form {
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  background-color: rgba(255, 255, 255);
   max-width: 30rem;
   padding: 2rem;
   box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
