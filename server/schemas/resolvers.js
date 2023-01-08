@@ -103,6 +103,14 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    deletePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const post = await Post.findByIdAndDelete({ postId });
+        return post;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    }
   }
 };
 
