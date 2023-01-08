@@ -37,7 +37,8 @@ type Query {
   getCurrentUser: User
   getPosts(userId: ID): [Post]
   getPost(postId: ID): Post
-  getUsers(userId: ID): [User]
+  getUsers: [User]
+  getUser(userId: ID): User
 }
 type Mutation {
   createUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth

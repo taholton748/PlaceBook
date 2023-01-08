@@ -24,10 +24,10 @@ const postSchema = new Schema({
     default: Date.now,
     get: timestamp => dateFormat(timestamp)
   },
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User',
-  // },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 const Post = mongoose.model('Post', postSchema);

@@ -25,15 +25,27 @@ const resolvers = {
       return Post.find(params).sort({ createdAt: -1 });
     },
     // get single post by id
-    getPost: async (parent, { _id }) => Post.findOne({ _id }),
-    // get all users OR user by ID
-    getUsers: async (parent, { userId }) => {
-      const params = userId ? { userId } : {};
-      User.find(params)
+    // eslint-disable-next-line arrow-body-style
+    getPost: async (parent, { postId }) => {
+      return Post.findOne({ postId });
+    },
+    getUsers: async () => {
+      const users = await User.find()
         .select('-__v -password')
         .populate('friends')
         // make sure syntax is correct so that a user request populates with posts
         .populate('post');
+      return users;
+    },
+    // get user by ID
+    getUser: async (parent, { userId }) => {
+      const user = await User.findOne(userId)
+        .select('-__v -password')
+        .populate('friends')
+        // make sure syntax is correct so that a user request populates with posts
+        .populate('post');
+
+      return user;
     },
   },
   Mutation: {
