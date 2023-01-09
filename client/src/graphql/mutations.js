@@ -25,7 +25,7 @@ export const LOGIN = gql`
         email
         posts {
           _id
-          title
+          location
           postBody
         }
         friends {
@@ -53,6 +53,7 @@ mutation updateUser($firstName: String!, $lastName: String!, $email: String!) {
 export const DELETE_USER = gql`
 mutation deleteUser {
   deleteUser {
+    _id,
     firstName,
     lastName,
     email
@@ -61,14 +62,14 @@ mutation deleteUser {
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost($title: String!, $postBody: String!, $photos: String!, $location: String!) {
-    createPost(title: $title, postBody: $postBody, photos: $photos, location: $location) {
+  mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Int) {
+    createPost(location: $location, postBody: $postBody, photos: $photos, rating: $rating) {
       _id
       userId
-      title
-      postBody
       location
+      postBody
       photos
+      rating
     }
   }
 `;
@@ -78,8 +79,10 @@ export const DELETE_POST = gql`
     deletePost(postId: $postId) {
       _id
       userId
-      title
+      location
       postBody
+      photos
+      rating
     }
   }
 `;
@@ -98,7 +101,6 @@ export const ADD_COMMENT = gql`
     addComment(postId: $postId, commentBody: $commentBody) {
       _id
       userId
-      postId
       commentBody
     }
   }
