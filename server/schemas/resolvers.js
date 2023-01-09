@@ -2,7 +2,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const omit = require('lodash.omit');
 
-const { User, Post, Like } = require('../models');
+const { User, Post } = require('../models');
 
 const { signToken } = require('../utils/auth');
 
@@ -22,7 +22,10 @@ const resolvers = {
     // this query gets all posts, or posts by certain users (search by userId)
     getPosts: async (parent, { userId }) => {
       const params = userId ? { userId } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+      const posts = await Post.find(params).sort({ createdAt: -1 })
+        .populate('likes');
+
+      return posts;
     },
     // get single post by id
     // eslint-disable-next-line arrow-body-style
@@ -113,16 +116,26 @@ const resolvers = {
     },
     likePost: async (parent, { postId }, context) => {
       if (context.user) {
-        const newLike = new Like({ postId, userId: context.user._id });
-        const like = newLike.save();
-
-        await Post.findByIdAndUpdate(
+        const updatedPost = await Post.findByIdAndUpdate(
           { _id: postId },
-          { $push: { postLikes: like._id } },
+          { $push: { likes: { userId: context.user._id } } },
           { new: true }
         );
 
-        return like;
+        return updatedPost;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    addComment: async (parent, { postId, commentBody }, context) => {
+      if (context.user) {
+        const updatedPost = await Post.findByIdAndUpdate(
+          { _id: postId },
+          { $push: { comments: { commentBody, userId: context.user._id } } },
+          { new: true }
+        );
+
+        return updatedPost;
       }
 
       throw new AuthenticationError('You need to be logged in!');

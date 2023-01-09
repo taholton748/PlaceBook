@@ -56,24 +56,18 @@ export const QUERY_POSTS = gql`
       postBody
       createdAt
       userId
-      postLikes {
+      likes {
         id
         userId
         createdAt
       }
-      postLikeCount
+      likeCount
       commentCount
       comments {
-        id
-        content
+        _id
+        commentBody
         createdAt
         userId
-        commentLikes {
-          id
-          userId
-          createdAt
-        }
-        commentLikeCount
       }
     }
   }
@@ -89,23 +83,17 @@ export const QUERY_POST = gql`
       postBody
       createdAt
       userId
-      postLikes {
+      likes {
         _id
         userId
         createdAt
       }
-      postLikeCount
+      likeCount
       comments {
         _id
         commentBody
         createdAt
         userId
-        commentLikes {
-          id
-          userId
-          createdAt
-        }
-        commentLikeCount
       }
     }
   }
