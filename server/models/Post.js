@@ -12,6 +12,7 @@ const postSchema = new Schema({
   description: { type: String, required: 'You must add a description!' },
   photos: { type: String },
   location: { type: String },
+  // TODO: Will need to import "LikeSchema" and add that below
   postLikes: [
     {
       userId: { type: String, required: true },

@@ -47,6 +47,7 @@ type Mutation {
   login(email: String!, password: String!): Auth
   createPost(title: String!, description: String!, photos: String!, rating: Int!): Post
   deletePost(postId: ID!): Post
+  likePost(postId: ID!, userId: ID!):Post
 }
 `;
 

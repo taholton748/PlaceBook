@@ -2,7 +2,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const omit = require('lodash.omit');
 
-const { User, Post } = require('../models');
+const { User, Post, Like } = require('../models');
 
 const { signToken } = require('../utils/auth');
 
@@ -105,8 +105,24 @@ const resolvers = {
     },
     deletePost: async (parent, { postId }, context) => {
       if (context.user) {
-        const post = await Post.findByIdAndDelete({ postId });
+        const post = await Post.findByIdAndDelete(postId);
         return post;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    likePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const newLike = new Like({ postId, userId: context.user._id });
+        const like = newLike.save();
+
+        await Post.findByIdAndUpdate(
+          { _id: postId },
+          { $push: { postLikes: like._id } },
+          { new: true }
+        );
+
+        return like;
       }
 
       throw new AuthenticationError('You need to be logged in!');

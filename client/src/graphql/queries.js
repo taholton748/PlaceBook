@@ -50,13 +50,63 @@ export const QUERY_POSTS = gql`
   query getPosts ($userId: ID) {
     getPosts (userId: $userId) {
       _id
+      imageUrl
+      location
       title
-      description
+      postBody
+      createdAt
+      userId
+      postLikes {
+        id
+        userId
+        createdAt
+      }
+      postLikeCount
+      commentCount
+      comments {
+        id
+        content
+        createdAt
+        userId
+        commentLikes {
+          id
+          userId
+          createdAt
+        }
+        commentLikeCount
+      }
+    }
+  }
+`;
+
+export const QUERY_POST = gql`
+  query getPost($postId: ID!) {
+    getPost(postId: $postId) {
+      _id
       photos
       location
-      postLikes
-      comments
+      title
+      postBody
       createdAt
+      userId
+      postLikes {
+        _id
+        userId
+        createdAt
+      }
+      postLikeCount
+      comments {
+        _id
+        commentBody
+        createdAt
+        userId
+        commentLikes {
+          id
+          userId
+          createdAt
+        }
+        commentLikeCount
+      }
     }
   }
 `;
