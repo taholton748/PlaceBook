@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-  username: {
-    type: String,
-    default: req.user.username,
-    required: true
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: 'Must provide userId!',
   },
-  comment: {
+  commentBody: {
     type: String,
-    required: true
+    required: 'Must provide a comment body!'
   },
   postId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Post',
     required: true
   },
@@ -23,6 +23,4 @@ const commentSchema = new Schema({
   }
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
-
-module.exports = Comment;
+module.exports = commentSchema;

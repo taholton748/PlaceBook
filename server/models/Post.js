@@ -1,41 +1,48 @@
 const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 const dateFormat = require('../utils/dateFormat');
 
+const commentSchema = require('./Comment');
+const likeSchema = require('./Like');
+
 const postSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: 'Must provide userId!'
+  },
   title: {
     type: String,
-    required: 'You must provide a title!'
+    required: 'You must provide a title!',
+    minLength: 1
   },
-  username: {
+  postBody: {
     type: String,
-    default: req.user.username,
-    required: 'You must add a description!'
+    required: 'You must add a body',
+    minLength: 1
   },
-  discreption: {
+  // TODO: can we figure out how to upload photos to an array and display them in a slideshow style?
+  // possibly by using semantic.ui
+  photos: [{
     type: String,
-    required: true
-  },
-  photo: {
-    type: String,
-  },
+  }],
   location: {
     type: String,
+    required: 'You must provide a location!'
   },
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
-  postLikes: [{
-    type: Number,
-    ref: 'User'
-  }],
+  comments: [commentSchema],
+  likes: [likeSchema],
   createdAt: {
     type: Date,
     default: Date.now,
     get: timestamp => dateFormat(timestamp)
-
   }
+});
+
+// returns a new property 'likeCount'
+postSchema.virtual('likeCount').get(function () {
+  return this.likes.length;
 });
 
 const Post = mongoose.model('Post', postSchema);

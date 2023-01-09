@@ -23,6 +23,17 @@ export const LOGIN = gql`
         firstName,
         lastName,
         email
+        posts {
+          _id
+          title
+          postBody
+        }
+        friends {
+          _id
+          firstName
+          lastName
+          email
+        }
       }
     }
   }
@@ -31,6 +42,7 @@ export const LOGIN = gql`
 export const UPDATE_USER = gql`
 mutation updateUser($firstName: String!, $lastName: String!, $email: String!) {
   updateUser(firstName: $firstName, lastName: $lastName, email: $email) {
+    _id,
     firstName,
     lastName,
     email
@@ -49,83 +61,25 @@ mutation deleteUser {
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost($title: String!, $postBody: String!, $imageUrl: String) {
-    createPost(title: $title, content: $postBody, imageUrl: $imageUrl, location: $location) {
-      imageUrl
+  mutation createPost($title: String!, $postBody: String!, $photos: String!, $location: String!) {
+    createPost(title: $title, postBody: $postBody, photos: $photos, location: $location) {
+      _id
+      userId
       title
-      content
+      postBody
       location
+      photos
     }
   }
 `;
 
 export const DELETE_POST = gql`
   mutation deletePost($postId: ID!) {
-    deletePost(postId: $postId)
-  }
-`;
-
-export const GET_POST = gql`
-  query getPost($postId: ID!) {
-    getPost(postId: $postId) {
-      id
-      imageUrl
-      location
-      title
-      content
-      createdAt
+    deletePost(postId: $postId) {
+      _id
       userId
-      postLikes {
-        id
-        userId
-        createdAt
-      }
-      postLikeCount
-      comments {
-        id
-        content
-        createdAt
-        userId
-        commentLikes {
-          id
-          userId
-          createdAt
-        }
-        commentLikeCount
-      }
-    }
-  }
-`;
-
-export const GET_POSTS = gql`
-  {
-    getPosts {
-      id
-      imageUrl
-      location
       title
-      content
-      createdAt
-      userId
-      postLikes {
-        id
-        userId
-        createdAt
-      }
-      postLikeCount
-      commentCount
-      comments {
-        id
-        content
-        createdAt
-        userId
-        commentLikes {
-          id
-          userId
-          createdAt
-        }
-        commentLikeCount
-      }
+      postBody
     }
   }
 `;
@@ -133,13 +87,19 @@ export const GET_POSTS = gql`
 export const LIKE_POST = gql`
   mutation likePost($postId: ID!) {
     likePost(postId: $postId) {
-      id
-      postLikes {
-        id
-        userId
-        createdAt
-      }
-      postLikeCount
+      _id
+      userId
+    }
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($postId: ID!, $commentBody: String!) {
+    addComment(postId: $postId, commentBody: $commentBody) {
+      _id
+      userId
+      postId
+      commentBody
     }
   }
 `;

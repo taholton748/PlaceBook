@@ -22,18 +22,33 @@ const resolvers = {
     // this query gets all posts, or posts by certain users (search by userId)
     getPosts: async (parent, { userId }) => {
       const params = userId ? { userId } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+      const posts = await Post.find(params).sort({ createdAt: -1 })
+        .populate('likes');
+
+      return posts;
     },
     // get single post by id
-    getPost: async (parent, { _id }) => Post.findOne({ _id }),
-    // get all users OR user by ID
-    getUsers: async (parent, { userId }) => {
-      const params = userId ? { userId } : {};
-      User.find(params)
+    // eslint-disable-next-line arrow-body-style
+    getPost: async (parent, { postId }) => {
+      return Post.findOne({ postId });
+    },
+    getUsers: async () => {
+      const users = await User.find()
         .select('-__v -password')
         .populate('friends')
         // make sure syntax is correct so that a user request populates with posts
         .populate('post');
+      return users;
+    },
+    // get user by ID
+    getUser: async (parent, { userId }) => {
+      const user = await User.findOne(userId)
+        .select('-__v -password')
+        .populate('friends')
+        // make sure syntax is correct so that a user request populates with posts
+        .populate('post');
+
+      return user;
     },
   },
   Mutation: {
@@ -91,6 +106,40 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    deletePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const post = await Post.findByIdAndDelete(postId);
+        return post;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    likePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const updatedPost = await Post.findByIdAndUpdate(
+          { _id: postId },
+          { $push: { likes: { userId: context.user._id } } },
+          { new: true }
+        );
+
+        return updatedPost;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    addComment: async (parent, { postId, commentBody }, context) => {
+      if (context.user) {
+        const updatedPost = await Post.findByIdAndUpdate(
+          { _id: postId },
+          { $push: { comments: { commentBody, userId: context.user._id } } },
+          { new: true }
+        );
+
+        return updatedPost;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    }
   }
 };
 
