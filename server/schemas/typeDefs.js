@@ -6,11 +6,13 @@ type Post {
   _id: ID
   userId: ID
   photos: String
-  title: String
+  location: String
   postBody: String
   rating: Int
   likes: [Like]
+  likeCount: Int
   comments: [Comment]
+  commentCount: Int
   createdAt: String
 }
 type Comment {
@@ -30,6 +32,7 @@ type User {
   email: String
   isAuthenticated: Boolean
   posts: [Post]
+  friends: [User]
 }
 type Auth {
   token: ID
@@ -47,7 +50,7 @@ type Mutation {
   updateUser(firstName: String!, lastName: String!, email: String!): User
   deleteUser: User
   login(email: String!, password: String!): Auth
-  createPost(title: String!, description: String!, photos: String!, rating: Int!): Post
+  createPost(location: String!, postBody: String!, photos: String!, rating: Int!): Post
   deletePost(postId: ID!): Post
   likePost(postId: ID!):Post
   addComment(postId: ID!, commentBody: String!):Post

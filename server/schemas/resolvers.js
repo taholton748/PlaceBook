@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return */
+/* eslint-disable eqeqeq */
 /* eslint-disable no-underscore-dangle */
 const { AuthenticationError } = require('apollo-server-express');
 const omit = require('lodash.omit');
@@ -88,7 +90,6 @@ const resolvers = {
 
       return { token, user };
     },
-    // eslint-disable-next-line object-curly-newline
     createPost: async (parent, args, context) => {
       if (context.user) {
         // const user = authMiddleware(context);
@@ -116,13 +117,28 @@ const resolvers = {
     },
     likePost: async (parent, { postId }, context) => {
       if (context.user) {
-        const updatedPost = await Post.findByIdAndUpdate(
-          { _id: postId },
-          { $push: { likes: { userId: context.user._id } } },
-          { new: true }
-        );
+        const post = await Post.findById(postId);
 
-        return updatedPost;
+        if (post) {
+          if (post.likes.find(like => like.userId == context.user._id)) {
+            // Post already liked - unlike post
+            post.likes = post.likes.filter(like => like.userId === context.user._id);
+            await post.save();
+
+            return post;
+          } else {
+            // Post not liked - add like to post
+            const updatedPost = await Post.findByIdAndUpdate(
+              { _id: postId },
+              { $push: { likes: { userId: context.user._id } } },
+              { new: true }
+            ).populate('likes');
+
+            return updatedPost;
+          }
+        } else {
+          // post not found, throw error
+        }
       }
 
       throw new AuthenticationError('You need to be logged in!');
