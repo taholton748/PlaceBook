@@ -8,12 +8,14 @@ export default function Navigation() {
     <nav>
       {isLoggedIn() ? (
         <>
+          <Link to="/">Home</Link>
           <Link to="/landing">Dashboard</Link>
           <Link to="/profile">Profile</Link>
           <button type="button" onClick={logoutUser}>Logout</button>
         </>
       ) : (
         <>
+          <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/register">Sign Up</Link>
           <Link to="/profile">Profile</Link>

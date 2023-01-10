@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {
@@ -15,12 +15,37 @@ import { QUERY_CURRENT_USER } from '../graphql/queries';
 const SinglePost = () => {
   const { id: PostId } = useParams();
 
+  const [like, setLikes] = useState(0);
+
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    setLikes(JSON.parse(window.localStorage.getItem('like')));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('like', like);
+  }, [like]);
+
+  const handleLikeClick = () => {
+    setLikes(count => count + 1);
+    setDisabled(true);
+  };
+
+  const [commentList, setCommentList] = useState([]);
+
+  const onAddCommentClick = () => {
+    setCommentList(commentList.concat(<Form reply key={commentList.length} />));
+  };
+
   const extra = (
     <div>
       <Rating icon="star" defaultRating={0} maxRating={5} />
       <br />
       <br />
       <Button
+        onClick={handleLikeClick}
+        disabled={disabled}
         color="red"
         content="Like"
         icon="heart"
@@ -28,12 +53,13 @@ const SinglePost = () => {
           basic: true,
           color: 'red',
           pointing: 'left',
-          content: '2,048 (post.likes)',
+          content: `${like}`,
         }}
       />
       <Form reply>
         <Form.TextArea placeholder="What do you think?" />
         <Button
+          onClick={onAddCommentClick}
           content="Add Comment"
           labelPosition="left"
           icon="paper plane outline"
@@ -59,11 +85,11 @@ const SinglePost = () => {
       header="Test Post (post.title)"
       meta="created at (post.createdAt)"
       description="this is where the description will go (post.postBody)"
-      extra={extra}
+      extra={[commentList, extra]}
       className="flex fluid"
       style={{
         paddingLeft: '10%',
-        paddingRight: '10%'
+        paddingRight: '10%',
       }}
     />
   );
