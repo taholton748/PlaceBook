@@ -9,7 +9,7 @@ import {
   Placeholder,
   Rating
 } from 'semantic-ui-react';
-import { QUERY_CURRENT_USER } from '../graphql/queries';
+import resolvers from '../../../server/schemas/resolvers';
 
 // eslint-disable-next-line react/function-component-definition
 const SinglePost = () => {
