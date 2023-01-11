@@ -15,7 +15,7 @@ const postSchema = new Schema({
   location: {
     type: String,
     required: 'You must provide a location',
-    metadata: Object
+    minLength: 1
   },
   postBody: {
     type: String,
