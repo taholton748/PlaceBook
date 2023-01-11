@@ -15,17 +15,17 @@ function CreatePostModal() {
       <Modal.Content>
         <Form>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>Photo</label>
             <UploadWidget />
           </Form.Field>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="description">Description</label>
             <textarea id="description" name="description" />
           </Form.Field>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>Location</label>
             <input id="location" name="location" />
           </Form.Field>
@@ -33,7 +33,7 @@ function CreatePostModal() {
             Submit
           </Button>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>Rating</label>
             <Rating icon="star" defaultRating={0} maxRating={5} />
           </Form.Field>
