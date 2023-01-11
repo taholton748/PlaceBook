@@ -23,7 +23,8 @@ const postSchema = new Schema({
   },
   rating: {
     type: Number,
-    required: 'Please provide a rating'
+    required: 'Please provide a rating',
+    minLength: 0
   },
   // TODO: can we figure out how to upload photos to an array and display them in a slideshow style?
   // possibly by using semantic.ui

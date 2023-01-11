@@ -34,6 +34,7 @@ export const LOGIN = gql`
           _id
           firstName
           lastName
+          username
           email
         }
       }
@@ -65,7 +66,7 @@ mutation deleteUser {
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Int) {
+  mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Int!) {
     createPost(location: $location, postBody: $postBody, photos: $photos, rating: $rating) {
       _id
       username
