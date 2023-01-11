@@ -1,36 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Comment, Form } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
-import { QUERY_POSTS, QUERY_USER } from '../../graphql/queries';
+// import { QUERY_POSTS, QUERY_USER } from '../../graphql/queries';
 import { ADD_COMMENT } from '../../graphql/mutations';
-// eslint-disable-next-line react/function-component-definition, arrow-body-style
-const CommentForm = () => {
+// eslint-disable-next-line react/function-component-definition, arrow-body-style, no-unused-vars
+const CommentForm = ({ postId }) => {
   const [commentText, setComment] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
   // eslint-disable-next-line no-shadow, max-len
-  const [addComment, { error }] = useMutation(ADD_COMMENT, {
-    // eslint-disable-next-line no-shadow
-    update(cache, { data: { addComment } }) {
-      try {
-        const { getUser } = cache.readQuery({ query: QUERY_USER });
-        cache.writeQuery({
-          query: QUERY_USER,
-          data: {
-            user: { ...getUser, comments: [...getUser.comments, addComment] },
-          },
-        });
-      } catch (e) {
-        console.warn('First comment by user!');
-      }
-
-      const { comments } = cache.readQuery({ query: QUERY_POSTS });
-      cache.writeQuery({
-        query: QUERY_POSTS,
-        data: { comments: [addComment, ...comments] },
-      });
-    },
-  });
+  const [addComment, { error }] = useMutation(ADD_COMMENT);
 
   const handleChange = event => {
     if (event.target.value.length <= 280) {
@@ -44,7 +23,7 @@ const CommentForm = () => {
 
     try {
       await addComment({
-        variables: { commentText },
+        variables: { commentText, postId },
       });
 
       setComment('');
