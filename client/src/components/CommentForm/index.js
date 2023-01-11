@@ -52,7 +52,7 @@ const CommentForm = () => {
     } catch (e) {
       console.error(e);
     }
-    console.log('<<<<<HELLO>>>>>');
+    console.log(commentText);
   };
 
   return (
