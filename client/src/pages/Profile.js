@@ -4,8 +4,12 @@ import '../App.css';
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import Auth from '../auth/auth';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import Auth from '../auth/auth';
 import logo from '../components/Images/PlaceBook.png';
 import Feed from '../components/Feed';
 
@@ -38,38 +42,23 @@ export default function Profile() {
   }
 
   return (
-    <div className="background">
-      <div className="profile">
-        <div className="card">
-          <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
-          <h1>{userParam ? `${user.firstName}'s` : 'Your'} profile.</h1>
-          <p className="title">CEO & Founder, Example</p>
-          <p>Harvard University</p>
-        </div>
-      </div>
-      <div className="feed">
-        <div className="card">
-          <h1>feed</h1>
-          <Feed />
-        </div>
-      </div>
-      <div className="friends">
-        <div className="card">
-          <h1>Friends:</h1>
-        </div>
-        <div className="card">
-          <img src={logo} alt="logo" style={{ width: '20%' }} className="App-logo-small" />
-          <h1>John Doe</h1>
-          <p className="title">CEO & Founder, Example</p>
-          <p>Harvard University</p>
-        </div>
-        <div className="card">
-          <img src={logo} alt="logo" style={{ width: '20%' }} className="App-logo-small" />
-          <h1>Jane Doe</h1>
-          <p className="title">CEO & Founder, Example</p>
-          <p>Harvard University</p>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <Row className="card">
+            <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
+            <h1>John Doe</h1>
+            <p className="title">CEO & Founder, Example</p>
+            <p>Harvard University</p>
+          </Row>
+          <Row className="card">
+            <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
+            <h1>Friends</h1>
+            <p className="title">Friends Here</p>
+          </Row>
+        </Col>
+        <Col className="card"><Feed /></Col>
+      </Row>
+    </Container>
   );
 }
