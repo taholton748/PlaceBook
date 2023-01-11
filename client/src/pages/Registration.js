@@ -14,6 +14,7 @@ export default function Registration() {
   const [formState, setFormState] = useState({
     firstName: '',
     lastName: '',
+    username: '',
     email: '',
     password: ''
   });
@@ -29,6 +30,7 @@ export default function Registration() {
           password: formState.password,
           firstName: formState.firstName,
           lastName: formState.lastName,
+          username: formState.username,
         },
       });
       const { token, user } = mutationResponse.data.createUser;
@@ -72,6 +74,16 @@ export default function Registration() {
             id="lastName"
             name="lastName"
             value={formState.lastName}
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="username">
+          Username:
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formState.username}
             onChange={handleChange}
           />
         </label>
