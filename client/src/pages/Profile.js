@@ -1,5 +1,4 @@
 import logo from '../components/Images/PlaceBook.png';
-import Feed from '../components/Feed';
 import '../App.css';
 
 // import { useCurrentUserContext } from '../context/currentUser';
@@ -18,7 +17,6 @@ export default function Profile() {
       <div className="feed">
         <div className="card">
           <h1>feed</h1>
-          <Feed />
         </div>
         <div className="card">
           <p className="title">CEO & Founder, Example</p>
