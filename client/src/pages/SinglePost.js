@@ -10,6 +10,7 @@ import {
 } from 'semantic-ui-react';
 import { QUERY_POST } from '../graphql/queries';
 import CommentForm from '../components/CommentForm';
+import '../App.css';
 // eslint-disable-next-line react/function-component-definition
 const SinglePost = () => {
   const { id: PostId } = useParams();
@@ -63,7 +64,13 @@ const SinglePost = () => {
     return <Icon loading name="spinner" size="large" />;
   }
   return (
-    <div>
+    <div
+      className="homeBody"
+      style={{
+        paddingLeft: '10%',
+        paddingRight: '10%',
+      }}
+    >
       <Card
         image={Placeholder.Image}
         header={post.title}
@@ -71,16 +78,9 @@ const SinglePost = () => {
         description={post.body}
         extra={[extra]}
         className="flex fluid"
-        style={{
-          paddingLeft: '10%',
-          paddingRight: '10%',
-        }}
       />
       <CommentForm
-        style={{
-          paddingLeft: '50%',
-          paddingRight: '70%',
-        }}
+        className="flex centered"
       />
     </div>
   );

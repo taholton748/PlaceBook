@@ -63,7 +63,9 @@ const SinglePost = () => {
     return <Icon loading name="spinner" size="large" />;
   }
   return (
-    <div>
+    <div
+      className="homeBody"
+    >
       <Card
         image={Placeholder.Image}
         header={post.title}
