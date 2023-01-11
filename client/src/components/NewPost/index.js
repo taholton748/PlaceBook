@@ -6,57 +6,57 @@ import { QUERY_CURRENT_USER } from '../../graphql/queries';
 import { CREATE_POST } from '../../graphql/mutations';
 
 const NewPostModal = () => {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [description, setDescription] = useState('');
-    const [location, setLocation] = useState('');
-    const [rating, setRating] = useState(0);
-    const [photos, setPhotos] = useState('')
-    const [file, setFile] = useState(null);
-    const [isFileSelected, setIsFileSelected] = useState(false)
-    const [error, setError] = useState('')
+  const [modalOpen, setModalOpen] = useState(false);
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [rating, setRating] = useState(0);
+  const [photos, setPhotos] = useState('')
+  const [file, setFile] = useState(null);
+  const [isFileSelected, setIsFileSelected] = useState(false)
+  const [error, setError] = useState('')
 
-    const { data: currentUserData } = useQuery(QUERY_CURRENT_USER);
-    const currentUser = currentUserData ? currentUserData.getCurrentUser : null;
+  const { data: currentUserData } = useQuery(QUERY_CURRENT_USER);
+  const currentUser = currentUserData ? currentUserData.getCurrentUser : null;
 
-    const [createPost] = useMutation(CREATE_POST);
+  const [createPost] = useMutation(CREATE_POST);
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setFile(file);
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setPhotos(reader.result);
-        }
-        reader.readAsDataURL(file);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPhotos(reader.result);
     }
+    reader.readAsDataURL(file);
+  }
 
-    const handleSubmit = async () => {
-        if (!currentUser) {
-            setError("Please login to create a post")
-            return;
-        }
-        try {
-            setError("")
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("location", location);
-            formData.append("postBody", description);
-            formData.append("rating", rating);
-            //You may need to use your own server here to handle the file upload and return the link
-            //or send it to the cloud service to get the image link
-            //Then use that link to pass it to the createPost mutation.
-            await createPost({
-                variables: formData
-              });
-          setModalOpen(false);
-          setDescription('');
-          setLocation('');
-          setRating(0);
-          setFile(null);
-          setPhotos('');
-      } catch (error) {
-          console.log(error);
-      }
+  const handleSubmit = async () => {
+    if (!currentUser) {
+      setError("Please login to create a post")
+      return;
+    }
+    try {
+      setError("")
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("location", location);
+      formData.append("postBody", description);
+      formData.append("rating", rating);
+      //You may need to use your own server here to handle the file upload and return the link
+      //or send it to the cloud service to get the image link
+      //Then use that link to pass it to the createPost mutation.
+      await createPost({
+        variables: formData
+      });
+      setModalOpen(false);
+      setDescription('');
+      setLocation('');
+      setRating(0);
+      setFile(null);
+      setPhotos('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -68,9 +68,9 @@ const NewPostModal = () => {
       <Modal.Header>Create a new post</Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
-           <Form.Field>
-           {!isFileSelected ? <Input type='file' onChange={handleFileChange}/> : ''}            <Image src={photos} wrapped size='medium' />
-          </Form.Field> 
+          <Form.Field>
+            {!isFileSelected ? <Input type='file' onChange={handleFileChange} /> : ''}            <Image src={photos} wrapped size='medium' />
+          </Form.Field>
           <Form.Field>
             <Input
               placeholder="Add a description"
@@ -95,10 +95,10 @@ const NewPostModal = () => {
           </Form.Field>
           <Form.Button type="submit">Submit</Form.Button>
           {error && <p>{error}</p>}
-</Form>
-</Modal.Content>
-</Modal>
-);
+        </Form>
+      </Modal.Content>
+    </Modal>
+  );
 };
 
 export default NewPostModal;

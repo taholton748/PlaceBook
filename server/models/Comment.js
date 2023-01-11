@@ -3,19 +3,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: 'Must provide userId!',
+  username: {
+    type: String,
+    required: 'Must provide username!',
   },
   commentBody: {
     type: String,
     required: 'Must provide a comment body!'
-  },
-  postId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Post',
-    required: true
   },
   createdAt: {
     type: Date,

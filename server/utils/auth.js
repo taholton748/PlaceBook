@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const jwt = require('jsonwebtoken');
 
 const secret = process.env.JWT_SECRET;
@@ -30,8 +31,8 @@ module.exports = {
 
     return req;
   },
-  signToken({ firstName, email, _id }) {
-    const payload = { firstName, email, _id };
+  signToken({ firstName, lastName, username, email, _id }) {
+    const payload = { firstName, lastName, username, email, _id };
     return jwt.sign(
       { data: payload },
       secret,

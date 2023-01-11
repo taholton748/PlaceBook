@@ -7,6 +7,7 @@ export const QUERY_USERS = gql`
       _id
       firstName
       lastName
+      username
       email
       posts {
         _id
@@ -19,17 +20,19 @@ export const QUERY_USERS = gql`
 `;
 
 export const QUERY_USER = gql`
-  query getUser($_id: ID!) {
-    getUser(userId: $_id) {
+  query getUser($username: String!) {
+    getUser(username: $username) {
       _id
       firstName
       lastName
+      username
       email
       posts {
         _id
-        title
-        description
+        location
+        postBody
         createdAt
+        commentCount
       }
     }
     }
@@ -42,23 +45,24 @@ export const QUERY_CURRENT_USER = gql`
       email
       firstName
       lastName
+      username
     }
   }
 `;
 
 export const QUERY_POSTS = gql`
-  query getPosts ($userId: ID) {
-    getPosts (userId: $userId) {
+  query getPosts ($username: String) {
+    getPosts (username: $username) {
       _id
       imageUrl
       location
       title
       postBody
       createdAt
-      userId
+      username
       likes {
         id
-        userId
+        username
         createdAt
       }
       likeCount
@@ -67,7 +71,7 @@ export const QUERY_POSTS = gql`
         _id
         commentBody
         createdAt
-        userId
+        username
       }
     }
   }
@@ -82,10 +86,10 @@ export const QUERY_POST = gql`
       title
       postBody
       createdAt
-      userId
+      username
       likes {
         _id
-        userId
+        username
         createdAt
       }
       likeCount
@@ -93,7 +97,7 @@ export const QUERY_POST = gql`
         _id
         commentBody
         createdAt
-        userId
+        username
       }
     }
   }

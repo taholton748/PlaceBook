@@ -21,9 +21,9 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-    // this query gets all posts, or posts by certain users (search by userId)
-    getPosts: async (parent, { userId }) => {
-      const params = userId ? { userId } : {};
+    // this query gets all posts, or posts by certain users (search by username)
+    getPosts: async (parent, { username }) => {
+      const params = username ? { username } : {};
       const posts = await Post.find(params).sort({ createdAt: -1 })
         .populate('likes');
 
@@ -43,8 +43,8 @@ const resolvers = {
       return users;
     },
     // get user by ID
-    getUser: async (parent, { userId }) => {
-      const user = await User.findOne(userId)
+    getUser: async (parent, { username }) => {
+      const user = await User.findOne({ username })
         .select('-__v -password')
         .populate('friends')
         // make sure syntax is correct so that a user request populates with posts
@@ -93,7 +93,7 @@ const resolvers = {
     createPost: async (parent, args, context) => {
       if (context.user) {
         // const user = authMiddleware(context);
-        const newPost = new Post({ ...args, userId: context.user._id });
+        const newPost = new Post({ ...args, username: context.user.username });
         const post = await newPost.save();
 
         await User.findByIdAndUpdate(
@@ -120,9 +120,10 @@ const resolvers = {
         const post = await Post.findById(postId);
 
         if (post) {
-          if (post.likes.find(like => like.userId == context.user._id)) {
+          if (post.likes.find(like => like.username == context.user.username)) {
             // Post already liked - unlike post
-            post.likes = post.likes.filter(like => like.userId === context.user._id);
+            // TODO: the below filter function is not filtering out the existing like
+            post.likes = post.likes.filter(like => like.username == context.user.username);
             await post.save();
 
             return post;
@@ -130,7 +131,7 @@ const resolvers = {
             // Post not liked - add like to post
             const updatedPost = await Post.findByIdAndUpdate(
               { _id: postId },
-              { $push: { likes: { userId: context.user._id } } },
+              { $push: { likes: { username: context.user.username } } },
               { new: true }
             ).populate('likes');
 
@@ -147,7 +148,7 @@ const resolvers = {
       if (context.user) {
         const updatedPost = await Post.findByIdAndUpdate(
           { _id: postId },
-          { $push: { comments: { commentBody, userId: context.user._id } } },
+          { $push: { comments: { commentBody, username: context.user.username } } },
           { new: true }
         );
 

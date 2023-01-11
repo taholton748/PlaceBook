@@ -57,7 +57,10 @@ function App() {
               <Route path="/register" element={<Registration />} />
               <Route path="/SinglePost" element={<SinglePost />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile">
+                <Route path=":username" element={<Profile />} />
+                <Route path="" element={<Profile />} />
+              </Route>
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </CurrentUserContextProvider>
