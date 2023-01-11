@@ -26,11 +26,11 @@ function CreatePostModal() {
             <label>Location</label>
             <input id="location" name="location" />
           </Form.Field>
-          <Button type="submit" onClick={handleSubmit}>Submit</Button>
           <Form.Field>
             <label>Rating</label>
-            <Rating icon="star" defaultRating={0} maxRating={5} />
+            <Rating icon="star" defaultRating={0} maxRating={5} id="rating" name="rating" />
           </Form.Field>
+          <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </Form>
       </Modal.Content>
     </Modal>
@@ -40,23 +40,25 @@ function CreatePostModal() {
 function handleSubmit() {
   // Get the form data
   const description = document.getElementById('description').value;
-  const photo = document.getElementById('photo').files[0];
   const location = document.getElementById('location').value;
+  const rating = document.getElementById('rating').value;
 
   // Create a new post object
-  const newPost = new Post({
+  const createPost = new Post({
     username: 'JohnDoe', // replace with actual username
     description: description,
     location: location,
+    rating: rating,
   });
 
   // Save the new post to the database
-  newPost.save((error) => {
+  createPost.save((error) => {
     if (error) {
       // handle error
     } else {
       // post saved successfully, close the modal
       setOpen(false);
+      console.log('Post saved successfully!');
     }
   });
 }
