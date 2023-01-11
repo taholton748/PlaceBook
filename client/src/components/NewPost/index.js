@@ -14,23 +14,29 @@ function CreatePostModal() {
       <Modal.Header>Create New Post</Modal.Header>
       <Modal.Content>
         <Form>
-        <Form.Field>
+          <Form.Field>
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
             <label>Photo</label>
             <UploadWidget />
           </Form.Field>
           <Form.Field>
-            <label>Description</label>
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
+            <label htmlFor="description">Description</label>
             <textarea id="description" name="description" />
           </Form.Field>
           <Form.Field>
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
             <label>Location</label>
             <input id="location" name="location" />
           </Form.Field>
+          <Button type="submit" onClick={handleSubmit}>
+            Submit
+          </Button>
           <Form.Field>
+            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
             <label>Rating</label>
-            <Rating icon="star" defaultRating={0} maxRating={5} id="rating" name="rating" />
+            <Rating icon="star" defaultRating={0} maxRating={5} />
           </Form.Field>
-          <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </Form>
       </Modal.Content>
     </Modal>
@@ -40,25 +46,23 @@ function CreatePostModal() {
 function handleSubmit() {
   // Get the form data
   const description = document.getElementById('description').value;
+  const photo = document.getElementById('photo').files[0];
   const location = document.getElementById('location').value;
-  const rating = document.getElementById('rating').value;
 
   // Create a new post object
-  const createPost = new Post({
+  const newPost = new Post({
     username: 'JohnDoe', // replace with actual username
-    description: description,
-    location: location,
-    rating: rating,
+    description: { description },
+    location: { location },
   });
 
   // Save the new post to the database
-  createPost.save((error) => {
+  newPost.save((error) => {
     if (error) {
       // handle error
     } else {
       // post saved successfully, close the modal
       setOpen(false);
-      console.log('Post saved successfully!');
     }
   });
 }
