@@ -35,7 +35,7 @@ export const QUERY_USER = gql`
         commentCount
       }
     }
-  }
+    }
 `;
 
 export const QUERY_CURRENT_USER = gql`
