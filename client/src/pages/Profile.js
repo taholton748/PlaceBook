@@ -1,3 +1,5 @@
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable max-len */
 import '../App.css';
@@ -18,18 +20,18 @@ import { QUERY_CURRENT_USER, QUERY_USER } from '../graphql/queries';
 
 // import { useCurrentUserContext } from '../context/currentUser';
 
-export default function Profile() {
-  const { email: userParam } = useParams();
+const Profile = () => {
+  const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_CURRENT_USER, {
-    variables: { email: userParam }
+  const { loading, error, data } = useQuery(userParam ? QUERY_USER : QUERY_CURRENT_USER, {
+    variables: { username: userParam }
   });
-  console.log(data);
+  console.log('Error ---', error);
+  console.log('data ---', data);
 
-  const user = data?.me || data?.user || {};
-
+  const user = data?.getCurrentUser || data?.getUser || {};
   // navigate to / if the current user's email is the param
-  if (Auth.loggedIn() && Auth.getProfile().data.email === userParam) {
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/profile" />;
   }
 
@@ -37,7 +39,7 @@ export default function Profile() {
     return <div>Loading...</div>;
   }
 
-  if (!user?.email) {
+  if (!user?.username) {
     <h4>
       You need to be logged in to see this page! Use the navigation links above to sign up or log in!
     </h4>;
@@ -49,7 +51,7 @@ export default function Profile() {
         <Col>
           <Row className="card">
             <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
-            <h1>{user.firstName}</h1>
+            <h1>{user.username}</h1>
             <p className="title">CEO & Founder, Example</p>
             <p>Harvard University</p>
           </Row>
@@ -59,4 +61,6 @@ export default function Profile() {
       </Row>
     </Container>
   );
-}
+};
+
+export default Profile;

@@ -20,7 +20,7 @@ export const QUERY_USERS = gql`
 `;
 
 export const QUERY_USER = gql`
-  query getUser($username: Sring!) {
+  query getUser($username: String!) {
     getUser(username: $username) {
       _id
       firstName
@@ -29,8 +29,8 @@ export const QUERY_USER = gql`
       email
       posts {
         _id
-        title
-        description
+        location
+        postBody
         createdAt
         commentCount
       }
