@@ -32,7 +32,7 @@ export const QUERY_USER = gql`
         createdAt
       }
     }
-  }
+    }
 `;
 
 export const QUERY_CURRENT_USER = gql`

@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {
   Button,
   Card,
-  Form,
   Icon,
   Placeholder,
   Rating
 } from 'semantic-ui-react';
-import { QUERY_CURRENT_USER } from '../../graphql/queries';
-
+import { QUERY_POST } from '../../graphql/queries';
+import CommentForm from '../CommentForm';
 // eslint-disable-next-line react/function-component-definition
 const SinglePost = () => {
   const { id: PostId } = useParams();
+
+  const [like, setLikes] = useState(0);
+
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    setLikes(JSON.parse(window.localStorage.getItem('like')));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('like', like);
+  }, [like]);
+
+  const handleLikeClick = () => {
+    setLikes(count => count + 1);
+    setDisabled(true);
+  };
 
   const extra = (
     <div>
@@ -21,6 +37,8 @@ const SinglePost = () => {
       <br />
       <br />
       <Button
+        onClick={handleLikeClick}
+        disabled={disabled}
         color="red"
         content="Like"
         icon="heart"
@@ -28,22 +46,13 @@ const SinglePost = () => {
           basic: true,
           color: 'red',
           pointing: 'left',
-          content: '2,048 (post.likes)',
+          content: `${like}`,
         }}
       />
-      <Form reply>
-        <Form.TextArea placeholder="What do you think?" />
-        <Button
-          content="Add Comment"
-          labelPosition="left"
-          icon="paper plane outline"
-          primary
-        />
-      </Form>
     </div>
   );
 
-  const { loading, data } = useQuery(QUERY_CURRENT_USER, {
+  const { loading, data } = useQuery(QUERY_POST, {
     variables: { id: PostId },
   });
 
@@ -54,15 +63,22 @@ const SinglePost = () => {
     return <Icon loading name="spinner" size="large" />;
   }
   return (
-    <div>
+    <div
+      className="homeBody"
+    >
       <Card
         image={Placeholder.Image}
-        header="Test Post (post.title)"
-        meta="created at (post.createdAt)"
-        description="this is where the description will go (post.postBody)"
-        extra={extra}
+        header={post.title}
+        meta={post.createdAt}
+        description={post.body}
+        extra={[extra]}
         className="flex centered"
+        style={{
+          paddingLeft: '10%',
+          paddingRight: '10%',
+        }}
       />
+      <CommentForm />
     </div>
   );
 };
