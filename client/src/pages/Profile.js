@@ -12,6 +12,7 @@ import Col from 'react-bootstrap/Col';
 import Auth from '../auth/auth';
 import logo from '../components/Images/PlaceBook.png';
 import Feed from '../components/Feed';
+import FriendList from '../components/FriendList';
 
 import { QUERY_CURRENT_USER, QUERY_USER } from '../graphql/queries';
 
@@ -23,6 +24,7 @@ export default function Profile() {
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_CURRENT_USER, {
     variables: { email: userParam }
   });
+  console.log(data);
 
   const user = data?.me || data?.user || {};
 
@@ -47,15 +49,11 @@ export default function Profile() {
         <Col>
           <Row className="card">
             <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
-            <h1>John Doe</h1>
+            <h1>{user.firstName}</h1>
             <p className="title">CEO & Founder, Example</p>
             <p>Harvard University</p>
           </Row>
-          <Row className="card">
-            <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
-            <h1>Friends</h1>
-            <p className="title">Friends Here</p>
-          </Row>
+          <FriendList />
         </Col>
         <Col className="card"><Feed /></Col>
       </Row>

@@ -2,13 +2,14 @@
 import { gql } from '@apollo/client';
 
 export const REGISTER_USER = gql`
-mutation registerUser($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-  createUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password ) {
+mutation registerUser($username: String!, $firstName: String!, $lastName: String!, $email: String!, $password: String!) {
+  createUser(username: $username, firstName: $firstName, lastName: $lastName, email: $email, password: $password ) {
     token,
     user {
       firstName,
       lastName,
-      email
+      email,
+      username
     }
   }
 }
@@ -22,6 +23,7 @@ export const LOGIN = gql`
         _id,
         firstName,
         lastName,
+        username,
         email
         posts {
           _id
@@ -40,11 +42,12 @@ export const LOGIN = gql`
 `;
 
 export const UPDATE_USER = gql`
-mutation updateUser($firstName: String!, $lastName: String!, $email: String!) {
-  updateUser(firstName: $firstName, lastName: $lastName, email: $email) {
+mutation updateUser($username: String!, $firstName: String!, $lastName: String!, $email: String!) {
+  updateUser(username: $username, firstName: $firstName, lastName: $lastName, email: $email) {
     _id,
     firstName,
     lastName,
+    username,
     email
   }
 }
@@ -65,7 +68,7 @@ export const CREATE_POST = gql`
   mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Int) {
     createPost(location: $location, postBody: $postBody, photos: $photos, rating: $rating) {
       _id
-      userId
+      username
       location
       postBody
       photos
@@ -78,7 +81,7 @@ export const DELETE_POST = gql`
   mutation deletePost($postId: ID!) {
     deletePost(postId: $postId) {
       _id
-      userId
+      username
       location
       postBody
       photos
@@ -91,7 +94,7 @@ export const LIKE_POST = gql`
   mutation likePost($postId: ID!) {
     likePost(postId: $postId) {
       _id
-      userId
+      username
     }
   }
 `;
@@ -100,7 +103,7 @@ export const ADD_COMMENT = gql`
   mutation addComment($postId: ID!, $commentBody: String!) {
     addComment(postId: $postId, commentBody: $commentBody) {
       _id
-      userId
+      username
       commentBody
     }
   }

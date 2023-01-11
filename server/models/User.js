@@ -14,6 +14,11 @@ const userSchema = new Schema({
     type: String,
     required: 'You must provide a last name!'
   },
+  username: {
+    type: String,
+    required: 'You must provide a username!',
+    unique: true
+  },
   email: {
     type: String,
     required: 'You must provide an email!',
@@ -54,6 +59,10 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
 
 const User = mongoose.model('User', userSchema);
 

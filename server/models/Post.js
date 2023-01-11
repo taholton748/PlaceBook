@@ -7,10 +7,9 @@ const commentSchema = require('./Comment');
 const likeSchema = require('./Like');
 
 const postSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: 'Must provide userId'
+  username: {
+    type: String,
+    required: 'Must provide username'
   },
   location: {
     type: String,
@@ -28,9 +27,7 @@ const postSchema = new Schema({
   },
   // TODO: can we figure out how to upload photos to an array and display them in a slideshow style?
   // possibly by using semantic.ui
-  photos: [{
-    type: String,
-  }],
+  photos: { type: String },
   comments: [commentSchema],
   likes: [likeSchema],
   createdAt: {
