@@ -4,9 +4,9 @@ import NewPost from '../components/NewPost';
 export default function Dashboard() {
   return (
     <div>
-    <button>
-      <NewPost />
-    </button>
+      <button type="button">
+        <NewPost />
+      </button>
       <h2>Dashboard</h2>
       <Feed />
     </div>
