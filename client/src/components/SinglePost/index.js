@@ -70,7 +70,7 @@ const SinglePost = () => {
         meta={post.createdAt}
         description={post.body}
         extra={[extra]}
-        className="flex fluid"
+        className="flex centered"
         style={{
           paddingLeft: '10%',
           paddingRight: '10%',

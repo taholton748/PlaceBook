@@ -76,7 +76,12 @@ const SinglePost = () => {
           paddingRight: '10%',
         }}
       />
-      <CommentForm />
+      <CommentForm
+        style={{
+          paddingLeft: '50%',
+          paddingRight: '70%',
+        }}
+      />
     </div>
   );
 };

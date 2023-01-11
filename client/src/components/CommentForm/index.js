@@ -3,12 +3,11 @@ import { Button, Comment, Form } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 // import { QUERY_POSTS, QUERY_USER } from '../../graphql/queries';
 import { ADD_COMMENT } from '../../graphql/mutations';
+
 // eslint-disable-next-line react/function-component-definition, arrow-body-style, no-unused-vars
 const CommentForm = ({ postId }) => {
-  const [commentText, setComment] = useState('');
+  const [commentBody, setComment] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
-
-  // eslint-disable-next-line no-shadow, max-len
   const [addComment, { error }] = useMutation(ADD_COMMENT);
 
   const handleChange = event => {
@@ -23,7 +22,7 @@ const CommentForm = ({ postId }) => {
 
     try {
       await addComment({
-        variables: { commentText, postId },
+        variables: { commentBody, postId },
       });
 
       setComment('');
@@ -31,18 +30,26 @@ const CommentForm = ({ postId }) => {
     } catch (e) {
       console.error(e);
     }
-    console.log(commentText);
+    console.log(commentBody);
   };
 
   return (
     <Comment.Group
-      className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
+      className={`${characterCount === 280 || error ? 'text-error' : ''}`}
     >
-      <Comment>
-        <Form reply onSubmit={handleFormSubmit}>
+      <Comment
+        style={{
+          paddingLeft: '30%',
+          paddingRight: '0%',
+        }}
+      >
+        <Form
+          reply
+          onSubmit={handleFormSubmit}
+        >
           <Form.TextArea
             placeholder="What do you think?"
-            value={commentText}
+            value={commentBody}
             onChange={handleChange}
           />
           <Button content="Add Comment" icon="paper plane" primary />
