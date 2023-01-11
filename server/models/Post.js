@@ -29,9 +29,9 @@ const postSchema = new Schema({
   },
   // TODO: can we figure out how to upload photos to an array and display them in a slideshow style?
   // possibly by using semantic.ui
-  photos: [{
+  photos: {
     type: String,
-  }],
+  },
   comments: [commentSchema],
   likes: [likeSchema],
   createdAt: {
