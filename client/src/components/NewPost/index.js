@@ -35,7 +35,7 @@ function CreatePostModal() {
           <Form.Field>
             { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
             <label>Rating</label>
-            <Rating icon="star" defaultRating={0} maxRating={5} />
+            <Rating icon="star" defaultRating={0} maxRating={5} id="rating" name="rating" />
           </Form.Field>
         </Form>
       </Modal.Content>
@@ -48,12 +48,14 @@ function handleSubmit() {
   const description = document.getElementById('description').value;
   const photo = document.getElementById('photo').files[0];
   const location = document.getElementById('location').value;
+  const rating = document.getElementById('rating').value;
 
   // Create a new post object
   const newPost = new Post({
     username: 'JohnDoe', // replace with actual username
     description: { description },
     location: { location },
+    rating: { rating },
   });
 
   // Save the new post to the database

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import '../../../.env';
 
 class UploadWidget extends Component {
   componentDidMount() {
-    const cloudName = "dmulvhaiq"; // replace with your own cloud name
-    const uploadPreset = "lwdruew7"; // replace with your own upload preset
+    const cloudName = REACT_APP_CLOUDNAME; // replace with your own cloud name
+    const uploadPreset = REACT_ACT_UPLOADPRESET; // replace with your own upload preset
 
     // Remove the comments from the code below to add
     // additional functionality.
