@@ -8,7 +8,7 @@ type Post {
   photos: String
   location: String
   postBody: String
-  rating: Int
+  rating: Number
   likes: [Like]
   likeCount: Int
   comments: [Comment]

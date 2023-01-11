@@ -1,72 +1,79 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, Rating } from 'semantic-ui-react';
-import UploadWidget from '../UploadWidget/index';
+import { Modal, Form, Input, Rating } from 'semantic-ui-react';
+import { useMutation } from '@apollo/client';
+import UploadWidget from '../UploadWidget';
 
-function CreatePostModal() {
-  const [open, setOpen] = useState(false);
+import { CREATE_POST } from "../../graphql/mutations";
+
+const NewPostModal = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [rating, setRating] = useState(0);
+
+  const [createPost, { data }] = useMutation(CREATE_POST);
+
+  const handleSubmit = async () => {
+    try {
+      createPost({
+          variables: {
+              input: {
+                  description: description,
+                  location: location,
+                  rating: rating
+              }
+          }
+      });
+      setModalOpen(false);
+      // reset form values
+      setDescription('');
+      setLocation('');
+      setRating(0);
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Modal
-      open={open}
-      trigger={<Button onClick={() => setOpen(true)}>Create New Post</Button>}
-      onClose={() => setOpen(false)}
+      trigger={<button onClick={() => setModalOpen(true)}>New Post</button>}
+      open={modalOpen}
+      onClose={() => setModalOpen(false)}
     >
-      <Modal.Header>Create New Post</Modal.Header>
+      <Modal.Header>Create a new post</Modal.Header>
       <Modal.Content>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label>Photo</label>
             <UploadWidget />
           </Form.Field>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" />
+            <Input
+              placeholder="Add a description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </Form.Field>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label>Location</label>
-            <input id="location" name="location" />
+            <Input
+              placeholder="Add a location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
           </Form.Field>
-          <Button type="submit" onClick={handleSubmit}>
-            Submit
-          </Button>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label>Rating</label>
-            <Rating icon="star" defaultRating={0} maxRating={5} id="rating" name="rating" />
+            <Rating
+              icon='star'
+              defaultRating={rating}
+              maxRating={5}
+              onRate={(e, { rating }) => setRating(rating)}
+            />
           </Form.Field>
+          <Form.Button type="submit">Submit</Form.Button>
         </Form>
       </Modal.Content>
     </Modal>
   );
-}
+};
 
-function handleSubmit() {
-  // Get the form data
-  const description = document.getElementById('description').value;
-  const photo = document.getElementById('photo').files[0];
-  const location = document.getElementById('location').value;
-  const rating = document.getElementById('rating').value;
-
-  // Create a new post object
-  const newPost = new Post({
-    username: 'JohnDoe', // replace with actual username
-    description: { description },
-    location: { location },
-    rating: { rating },
-  });
-
-  // Save the new post to the database
-  newPost.save((error) => {
-    if (error) {
-      // handle error
-    } else {
-      // post saved successfully, close the modal
-      setOpen(false);
-    }
-  });
-}
-
-export default CreatePostModal;
+export default NewPostModal;

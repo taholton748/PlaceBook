@@ -62,7 +62,7 @@ mutation deleteUser {
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Int) {
+  mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Number!) {
     createPost(location: $location, postBody: $postBody, photos: $photos, rating: $rating) {
       _id
       userId

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-class UploadWidget extends Component {
+class CloudinaryUploadWidget extends Component {
   componentDidMount() {
-    const cloudName = "dmulvhaiq"; // replace with your own cloud name
-    const uploadPreset = "lwdruew7"; // replace with your own upload preset
+    const cloudName = "hzxyensd5"; // replace with your own cloud name
+    const uploadPreset = "aoh4fpwm"; // replace with your own upload preset
 
     // Remove the comments from the code below to add
     // additional functionality.
@@ -55,4 +55,4 @@ class UploadWidget extends Component {
   }
 }
 
-export default UploadWidget;
+export default CloudinaryUploadWidget;
