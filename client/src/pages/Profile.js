@@ -18,24 +18,6 @@ export default function Profile() {
         <div className="card">
           <h1>feed</h1>
         </div>
-        <div className="card">
-          <p className="title">CEO & Founder, Example</p>
-        </div>
-        <div className="card">
-          <p>Harvard University</p>
-        </div>
-        <div className="card">
-          <p>Harvard University</p>
-        </div>
-        <div className="card">
-          <p>Harvard University</p>
-        </div>
-        <div className="card">
-          <p>Harvard University</p>
-        </div>
-        <div className="card">
-          <p>Harvard University</p>
-        </div>
       </div>
       <div className="friends">
         <div className="card">
