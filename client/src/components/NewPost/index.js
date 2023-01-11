@@ -11,29 +11,29 @@ const NewPostModal = () => {
   const [location, setLocation] = useState('');
   const [rating, setRating] = useState(0);
 
-  const [createPost, { data }] = useMutation(CREATE_POST);
+const [createPost, { data }] = useMutation(CREATE_POST);
+const [photos, setPhotos] = useState('')
 
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
     try {
-      createPost({
-          variables: {
-              input: {
-                  description: description,
-                  location: location,
-                  rating: rating
-              }
-          }
-      });
-      setModalOpen(false);
-      // reset form values
-      setDescription('');
-      setLocation('');
-      setRating(0);
-      console.log(data)
+        createPost({
+            variables: {
+                location: location,
+                postBody: description,
+                photos: photos,
+                rating: rating
+            }
+        });
+        setModalOpen(false);
+        setDescription('');
+        setLocation('');
+        setRating(0);
+        setPhotos('')
+        console.log(data)
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
+};
 
   return (
     <Modal
