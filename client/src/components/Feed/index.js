@@ -27,7 +27,7 @@ export default function FeedExample() {
       </Feed.Event>
 
       <Feed.Event>
-        <Feed.Label image="/images/avatar/small/helen.jpg" />
+        <Feed.Label image="https://react.semantic-ui.com/images/avatar/small/helen.jpg" />
         <Feed.Content>
           <Feed.Summary>
             <a href="mailto:example@example.com">Helen Troy</a>
@@ -53,7 +53,7 @@ export default function FeedExample() {
       </Feed.Event>
 
       <Feed.Event>
-        <Feed.Label image="/images/avatar/small/jenny.jpg" />
+        <Feed.Label image="https://react.semantic-ui.com/images/avatar/small/jenny.jpg" />
         <Feed.Content>
           <Feed.Summary
             date="2 Days Ago"
@@ -70,7 +70,7 @@ export default function FeedExample() {
       </Feed.Event>
 
       <Feed.Event>
-        <Feed.Label image="/images/avatar/small/joe.jpg" />
+        <Feed.Label image="https://react.semantic-ui.com/images/avatar/small/joe.jpg" />
         <Feed.Content>
           <Feed.Summary>
             <a href="mailto:example@example.com">Joe Henderson</a>
@@ -93,7 +93,7 @@ export default function FeedExample() {
       </Feed.Event>
 
       <Feed.Event>
-        <Feed.Label image="/images/avatar/small/justen.jpg" />
+        <Feed.Label image="https://react.semantic-ui.com/images/avatar/small/justen.jpg" />
         <Feed.Content>
           <Feed.Summary>
             <a href="mailto:example@example.com">Justin Smith</a>
