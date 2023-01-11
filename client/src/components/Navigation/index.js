@@ -16,7 +16,6 @@ export default function Navigation() {
         <>
           <Link to="/login">Login</Link>
           <Link to="/register">Sign Up</Link>
-          <Link to="/profile">Profile</Link>
         </>
       )}
     </nav>

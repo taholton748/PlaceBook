@@ -1,8 +1,10 @@
-html, body {
-  box-sizing: border-box;
-  height: 100%;
+@media only screen and (min-width: 992px) {
+  html, body {
+    box-sizing: border-box;
+    height: 100%;
+    min-width:1300px;        /* Suppose you want minimum width of 1000px */
+  }
 }
-
 body > #root > div {
   height: 100vh;
 }
@@ -13,13 +15,32 @@ body {
 }
 
 .card {
-  margin: auto;
+  margin: auto 2rem;
   display: flex;
   background-color: rgb(255, 255, 255);
   flex-direction: column;
-  max-width: 30rem;
+  max-width: 40rem;
   padding: 2rem;
   box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.profile {  
+    float: left;
+    width:30%;  
+}
+
+.feed {
+    float: left;
+    width:50%;
+}
+
+.feed > .card {
+  max-width: 60rem;
+}
+
+.friends {
+    float: left;
+    width:20%;
 }
 
 /* body h2 {
