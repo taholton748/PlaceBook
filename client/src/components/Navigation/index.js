@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCurrentUserContext } from '../../context/currentUser';
+import Search from '../Search';
+import '../../App.css';
 
 export default function Navigation() {
   const { isLoggedIn, logoutUser } = useCurrentUserContext();
@@ -11,6 +13,7 @@ export default function Navigation() {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/profile">Profile</Link>
           <button type="button" onClick={logoutUser}>Logout</button>
+          <Search className="search-bar" />
         </>
       ) : (
         <>
