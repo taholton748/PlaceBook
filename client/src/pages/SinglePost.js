@@ -4,13 +4,12 @@ import { useQuery } from '@apollo/client';
 import {
   Button,
   Card,
-  Form,
   Icon,
   Placeholder,
   Rating
 } from 'semantic-ui-react';
-import resolvers from '../../../server/schemas/resolvers';
-
+import { QUERY_POST } from '../graphql/queries';
+import CommentForm from '../components/CommentForm';
 // eslint-disable-next-line react/function-component-definition
 const SinglePost = () => {
   const { id: PostId } = useParams();
@@ -32,12 +31,6 @@ const SinglePost = () => {
     setDisabled(true);
   };
 
-  const [commentList, setCommentList] = useState([]);
-
-  const onAddCommentClick = () => {
-    setCommentList(commentList.concat(<Form reply key={commentList.length} />));
-  };
-
   const extra = (
     <div>
       <Rating icon="star" defaultRating={0} maxRating={5} />
@@ -56,20 +49,10 @@ const SinglePost = () => {
           content: `${like}`,
         }}
       />
-      <Form reply>
-        <Form.TextArea placeholder="What do you think?" />
-        <Button
-          onClick={onAddCommentClick}
-          content="Add Comment"
-          labelPosition="left"
-          icon="paper plane outline"
-          primary
-        />
-      </Form>
     </div>
   );
 
-  const { loading, data } = useQuery(QUERY_CURRENT_USER, {
+  const { loading, data } = useQuery(QUERY_POST, {
     variables: { id: PostId },
   });
 
@@ -80,18 +63,21 @@ const SinglePost = () => {
     return <Icon loading name="spinner" size="large" />;
   }
   return (
-    <Card
-      image={Placeholder.Image}
-      header="Test Post (post.title)"
-      meta="created at (post.createdAt)"
-      description="this is where the description will go (post.postBody)"
-      extra={[commentList, extra]}
-      className="flex fluid"
-      style={{
-        paddingLeft: '10%',
-        paddingRight: '10%',
-      }}
-    />
+    <div>
+      <Card
+        image={Placeholder.Image}
+        header={post.title}
+        meta={post.createdAt}
+        description={post.body}
+        extra={[extra]}
+        className="flex fluid"
+        style={{
+          paddingLeft: '10%',
+          paddingRight: '10%',
+        }}
+      />
+      <CommentForm />
+    </div>
   );
 };
 
