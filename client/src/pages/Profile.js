@@ -2,7 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import logo from '../components/Images/PlaceBook.png';
-import Feed from '../components/Feed';
 import '../App.css';
 
 export default function AutoLayoutExample() {

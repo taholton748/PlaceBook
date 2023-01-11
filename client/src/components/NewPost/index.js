@@ -1,70 +1,88 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, Rating } from 'semantic-ui-react';
-import UploadWidget from '../UploadWidget/index';
+import { Modal, Form, Input, Rating } from 'semantic-ui-react';
+import { useMutation, useQuery } from '@apollo/client';
+import UploadWidget from '../UploadWidget';
+import { QUERY_CURRENT_USER } from '../../graphql/queries';
+import { CREATE_POST } from '../../graphql/mutations';
 
-function CreatePostModal() {
-  const [open, setOpen] = useState(false);
+const NewPostModal = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [description, setDescription] = useState('');
+    const [location, setLocation] = useState('');
+    const [rating, setRating] = useState(0);
+    const [photos, setPhotos] = useState('')
+    const [error, setError] = useState('')
+
+    const { data: currentUserData } = useQuery(QUERY_CURRENT_USER);
+    const currentUser = currentUserData ? currentUserData.getCurrentUser : null;
+
+    const [createPost] = useMutation(CREATE_POST);
+
+    const handleSubmit = async () => {
+        if (!currentUser) {
+            setError("Please login to create a post")
+            return;
+        }
+        try {
+            setError("")
+            await createPost({
+                variables: {
+                  location: location,
+                  postBody: description,
+                  photos: photos,
+                  rating: rating
+              }
+          });
+          setModalOpen(false);
+          setDescription('');
+          setLocation('');
+          setRating(0);
+          setPhotos('')
+      } catch (error) {
+          console.log(error);
+      }
+  };
 
   return (
     <Modal
-      open={open}
-      trigger={<Button onClick={() => setOpen(true)}>Create New Post</Button>}
-      onClose={() => setOpen(false)}
+      trigger={<button onClick={() => setModalOpen(true)}>New Post</button>}
+      open={modalOpen}
+      onClose={() => setModalOpen(false)}
     >
-      <Modal.Header>Create New Post</Modal.Header>
+      <Modal.Header>Create a new post</Modal.Header>
       <Modal.Content>
-        <Form>
-          <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label>Photo</label>
+        <Form onSubmit={handleSubmit}>
+           <Form.Field>
             <UploadWidget />
+          </Form.Field> 
+          <Form.Field>
+            <Input
+              placeholder="Add a description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </Form.Field>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" />
+            <Input
+              placeholder="Add a location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
           </Form.Field>
           <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label>Location</label>
-            <input id="location" name="location" />
+            <Rating
+              icon='star'
+              defaultRating={rating}
+              maxRating={5}
+              onRate={(e, { rating }) => setRating(rating)}
+            />
           </Form.Field>
-          <Button type="submit" onClick={handleSubmit}>
-            Submit
-          </Button>
-          <Form.Field>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-            <label>Rating</label>
-            <Rating icon="star" defaultRating={0} maxRating={5} />
-          </Form.Field>
-        </Form>
-      </Modal.Content>
-    </Modal>
-  );
-}
+          <Form.Button type="submit">Submit</Form.Button>
+          {error && <p>{error}</p>}
+</Form>
+</Modal.Content>
+</Modal>
+);
+};
 
-function handleSubmit() {
-  // Get the form data
-  const description = document.getElementById('description').value;
-  const photo = document.getElementById('photo').files[0];
-  const location = document.getElementById('location').value;
-
-  // Create a new post object
-  const newPost = new Post({
-    username: 'JohnDoe', // replace with actual username
-    description: { description },
-    location: { location },
-  });
-
-  // Save the new post to the database
-  newPost.save((error) => {
-    if (error) {
-      // handle error
-    } else {
-      // post saved successfully, close the modal
-      setOpen(false);
-    }
-  });
-}
-
-export default CreatePostModal;
+export default NewPostModal;
