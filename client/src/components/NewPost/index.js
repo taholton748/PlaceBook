@@ -1,39 +1,47 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Rating } from 'semantic-ui-react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import UploadWidget from '../UploadWidget';
-
-import { CREATE_POST } from "../../graphql/mutations";
+import { QUERY_CURRENT_USER } from '../../graphql/queries';
+import { CREATE_POST } from '../../graphql/mutations';
 
 const NewPostModal = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [rating, setRating] = useState(0);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [description, setDescription] = useState('');
+    const [location, setLocation] = useState('');
+    const [rating, setRating] = useState(0);
+    const [photos, setPhotos] = useState('')
+    const [error, setError] = useState('')
 
-const [createPost, { data }] = useMutation(CREATE_POST);
-const [photos, setPhotos] = useState('')
+    const { data: currentUserData } = useQuery(QUERY_CURRENT_USER);
+    const currentUser = currentUserData ? currentUserData.getCurrentUser : null;
 
-const handleSubmit = async () => {
-    try {
-        createPost({
-            variables: {
-                location: location,
-                postBody: description,
-                photos: photos,
-                rating: rating
-            }
-        });
-        setModalOpen(false);
-        setDescription('');
-        setLocation('');
-        setRating(0);
-        setPhotos('')
-        console.log(data)
-    } catch (error) {
-        console.log(error);
-    }
-};
+    const [createPost] = useMutation(CREATE_POST);
+
+    const handleSubmit = async () => {
+        if (!currentUser) {
+            setError("Please login to create a post")
+            return;
+        }
+        try {
+            setError("")
+            await createPost({
+                variables: {
+                  location: location,
+                  postBody: description,
+                  photos: photos,
+                  rating: rating
+              }
+          });
+          setModalOpen(false);
+          setDescription('');
+          setLocation('');
+          setRating(0);
+          setPhotos('')
+      } catch (error) {
+          console.log(error);
+      }
+  };
 
   return (
     <Modal
@@ -44,9 +52,9 @@ const handleSubmit = async () => {
       <Modal.Header>Create a new post</Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
-          <Form.Field>
+           <Form.Field>
             <UploadWidget />
-          </Form.Field>
+          </Form.Field> 
           <Form.Field>
             <Input
               placeholder="Add a description"
@@ -70,10 +78,11 @@ const handleSubmit = async () => {
             />
           </Form.Field>
           <Form.Button type="submit">Submit</Form.Button>
-        </Form>
-      </Modal.Content>
-    </Modal>
-  );
+          {error && <p>{error}</p>}
+</Form>
+</Modal.Content>
+</Modal>
+);
 };
 
 export default NewPostModal;
