@@ -22,25 +22,6 @@ body {
   box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
-.profile {  
-    float: left;
-    width:30%;  
-}
-
-.feed {
-    float: left;
-    width:50%;
-}
-
-.feed > .card {
-  max-width: 60rem;
-}
-
-.friends {
-    float: left;
-    width:20%;
-}
-
 /* body h2 {
   text-align: center;
 } */
