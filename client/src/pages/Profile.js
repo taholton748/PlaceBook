@@ -1,5 +1,6 @@
 import logo from '../components/Images/PlaceBook.png';
 import '../App.css';
+import Feed from '../components/Feed';
 
 // import { useCurrentUserContext } from '../context/currentUser';
 
@@ -12,6 +13,7 @@ export default function Profile() {
         <p className="title">CEO & Founder, Example</p>
         <p>Harvard University</p>
       </div>
+      <Feed />
     </div>
   );
 }
