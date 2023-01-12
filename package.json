@@ -1,9 +1,9 @@
 {
   "name": "react-apollo-graphql-mongo",
   "version": "1.0.0",
-  "description": "",
+  "description": "[![License Badge](https://img.shields.io/badge/license-MIT-blue)](https://choosealicense.com/licenses/mit/)   ## Description   PlaceBook is a travel-focused social media application. <hr>",
   "engines": {
-    "node":"16.17.0"
+    "node": "16.17.0"
   },
   "main": "index.js",
   "scripts": {
