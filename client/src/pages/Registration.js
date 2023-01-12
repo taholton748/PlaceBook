@@ -5,11 +5,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { REGISTER_USER } from '../graphql/mutations';
 
 import { useCurrentUserContext } from '../context/currentUser';
+import logo from '../components/Images/PlaceBook.png';
+import '../App.css';
 
 export default function Registration() {
   const { loginUser } = useCurrentUserContext();
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
     email: '',
     password: ''
   });
@@ -25,14 +30,15 @@ export default function Registration() {
           password: formState.password,
           firstName: formState.firstName,
           lastName: formState.lastName,
+          username: formState.username,
         },
       });
       const { token, user } = mutationResponse.data.createUser;
       loginUser(user, token);
       navigate('/dashboard');
     } catch (e) {
-    // eslint-disable-next-line no-console
-      console.log(e);
+      // eslint-disable-next-line no-console
+      console.log(e, JSON.stringify(error, null, 2));
     }
   };
 
@@ -42,12 +48,13 @@ export default function Registration() {
   };
 
   return (
-    <div>
+    <div className="background">
       {error ? (
         <div>
           <p className="error-text">The provided credentials are incorrect</p>
         </div>
       ) : null}
+      <img src={logo} alt="logo" className="App-logo-small" />
       <form onSubmit={handleFormSubmit}>
         <h2>Register</h2>
         <label htmlFor="firstName">
@@ -67,6 +74,16 @@ export default function Registration() {
             id="lastName"
             name="lastName"
             value={formState.lastName}
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="username">
+          Username:
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formState.username}
             onChange={handleChange}
           />
         </label>

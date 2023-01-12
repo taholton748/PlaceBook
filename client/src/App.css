@@ -3,13 +3,64 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 80vmin;
   pointer-events: none;
+  display:block;
+  margin-left:400px;
+}
+
+.App-logo-small {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 20%;
+}
+
+.homeTextLeft {
+  font-family: cursive;
+  font-size:45px;
+  text-align: left;
+}
+
+.homeTextCenter {
+  font-family: cursive;
+  font-size:38px;
+  text-align: center;
+}
+
+.homeBody {
+  background-image: url('./components/Images/home-background2.webp') !important;
+    background-size: cover !important;
+}
+
+.background {
+  background-image: url('./components/Images/home-background.jpeg') !important;
+    background-size: cover !important;
+    padding: 2rem;
+}
+
+.top-quote {
+  font-family: cursive;
+  margin-top: 80px;
+  margin-left: 60px;
+  font-size: 30px;
+}
+
+.bottom-quote {
+  font-family: cursive;
+  margin-bottom: 80px;
+  margin-right: 100px;
+  font-size: 30px;
+  text-align: right;
+}
+
+.search-bar {
+  align-content: space-around;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    /* animation: App-logo-spin infinite 20s linear; */
   }
 }
 

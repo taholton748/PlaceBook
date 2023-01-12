@@ -1,3 +1,5 @@
 const User = require('./User');
+const Post = require('./Post');
 
-module.exports = { User };
+// eslint-disable-next-line object-curly-newline
+module.exports = { User, Post };
