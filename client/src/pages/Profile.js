@@ -56,7 +56,7 @@ const Profile = () => {
           <Row className="card">
             <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
             <h1>{user.username}</h1>
-            <p className="title">CEO & Founder, Example</p>
+            <p className="title">CEO , Founder, Example</p>
             <p>Harvard University</p>
           </Row>
           <FriendList />
