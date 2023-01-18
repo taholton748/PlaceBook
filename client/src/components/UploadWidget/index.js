@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from "react";
 
 class CloudinaryUploadWidget extends Component {

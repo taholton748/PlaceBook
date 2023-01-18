@@ -27,8 +27,10 @@ export const LOGIN = gql`
         email
         posts {
           _id
+          username
           location
           postBody
+          rating
         }
         friends {
           _id
@@ -69,7 +71,6 @@ export const CREATE_POST = gql`
   mutation createPost($location: String!, $postBody: String!, $photos: String!, $rating: Int!) {
     createPost(location: $location, postBody: $postBody, photos: $photos, rating: $rating) {
       _id
-      username
       location
       postBody
       photos

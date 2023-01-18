@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -55,7 +57,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Registration />} />
-              <Route path="/SinglePost" element={<SinglePost />} />
+              <Route path="/post" element={<SinglePost />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile">
                 <Route path=":username" element={<Profile />} />
