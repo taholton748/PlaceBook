@@ -62,15 +62,6 @@ const Profile = () => {
           <FriendList />
         </Col>
         <Col className="card"><Feed /></Col>
-
-        {user.posts.map(test => {
-          return (
-            <div>
-              {test.location}
-              {test.rating}
-            </div>
-          );
-        })}
       </Row>
     </Container>
   );
