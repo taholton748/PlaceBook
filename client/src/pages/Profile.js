@@ -2,6 +2,9 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable max-len */
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable object-shorthand */
 import '../App.css';
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
@@ -21,17 +24,18 @@ import { QUERY_CURRENT_USER, QUERY_USER } from '../graphql/queries';
 // import { useCurrentUserContext } from '../context/currentUser';
 
 const Profile = () => {
-  const { username: userParam } = useParams();
+  const { username } = useParams();
+  console.log(username);
 
-  const { loading, error, data } = useQuery(userParam ? QUERY_USER : QUERY_CURRENT_USER, {
-    variables: { username: userParam }
+  const { loading, error, data } = useQuery(QUERY_USER, {
+    variables: { username: username }
   });
   console.log('Error ---', error);
   console.log('data ---', data);
 
   const user = data?.getCurrentUser || data?.getUser || {};
   // navigate to / if the current user's email is the param
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+  if (Auth.loggedIn() && Auth.getProfile().data.username === username) {
     return <Navigate to="/profile" />;
   }
 
@@ -52,7 +56,7 @@ const Profile = () => {
           <Row className="card">
             <img src={logo} alt="logo" style={{ width: '40%' }} className="App-logo-small" />
             <h1>{user.username}</h1>
-            <p className="title">CEO & Founder, Example</p>
+            <p className="title">CEO , Founder, Example</p>
             <p>Harvard University</p>
           </Row>
           <FriendList />
