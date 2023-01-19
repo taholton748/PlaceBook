@@ -54,16 +54,14 @@ export const QUERY_POSTS = gql`
   query getPosts ($username: String) {
     getPosts (username: $username) {
       _id
-      imageUrl
+      photos
       location
-      title
       postBody
       createdAt
       username
       likes {
-        id
+        _id
         username
-        createdAt
       }
       likeCount
       commentCount
