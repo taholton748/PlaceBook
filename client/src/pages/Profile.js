@@ -24,18 +24,18 @@ import { QUERY_CURRENT_USER, QUERY_USER } from '../graphql/queries';
 // import { useCurrentUserContext } from '../context/currentUser';
 
 const Profile = () => {
-  const { username } = useParams();
-  console.log(username);
+  const { username: userParam } = useParams();
+  console.log(userParam);
 
-  const { loading, error, data } = useQuery(QUERY_USER, {
-    variables: { username: username }
+  const { loading, error, data } = useQuery(userParam ? QUERY_USER : QUERY_CURRENT_USER, {
+    variables: { username: userParam }
   });
-  console.log('Error ---', error);
+  console.log('Error ---', JSON.stringify(error, null, 2));
   console.log('data ---', data);
 
   const user = data?.getCurrentUser || data?.getUser || {};
   // navigate to / if the current user's email is the param
-  if (Auth.loggedIn() && Auth.getProfile().data.username === username) {
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/profile" />;
   }
 

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import Auth from '../auth/auth';
 
 import PostFeed from '../components/Feed';
 import PostForm from '../components/PostForm';
@@ -20,8 +19,6 @@ export default function Dashboard() {
 
   const posts = data?.getPosts || [];
   console.log('Posts ---', posts);
-
-  const loggedIn = Auth.loggedIn();
 
   return (
     <div>
