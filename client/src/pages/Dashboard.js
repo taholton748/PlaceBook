@@ -7,6 +7,8 @@ import PostForm from '../components/PostForm';
 
 import { QUERY_POSTS, QUERY_CURRENT_USER } from '../graphql/queries';
 
+import CurrentUserContextProvider from '../context/currentUser';
+
 export default function Dashboard() {
   // use useQuery hook to make query request
   const { loading, error, data } = useQuery(QUERY_POSTS);
