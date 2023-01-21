@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import Auth from '../auth/auth';
 
 import PostFeed from '../components/Feed';
 import PostForm from '../components/PostForm';
 
 import { QUERY_POSTS, QUERY_CURRENT_USER } from '../graphql/queries';
+
+import CurrentUserContextProvider from '../context/currentUser';
 
 export default function Dashboard() {
   // use useQuery hook to make query request
@@ -20,8 +21,6 @@ export default function Dashboard() {
 
   const posts = data?.getPosts || [];
   console.log('Posts ---', posts);
-
-  const loggedIn = Auth.loggedIn();
 
   return (
     <div>

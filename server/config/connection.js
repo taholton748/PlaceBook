@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 mongoose
   .set('strictQuery', false)
   .set('strictPopulate', false);
