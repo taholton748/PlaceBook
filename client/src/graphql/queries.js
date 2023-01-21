@@ -46,6 +46,31 @@ export const QUERY_CURRENT_USER = gql`
       firstName
       lastName
       username
+      friends {
+        _id
+        username
+        firstName
+        lastName
+        email
+      }
+      posts {
+        _id
+        postBody
+        location
+        rating
+        photos
+        commentCount
+        comments {
+          _id
+          username
+          commentBody
+        }
+        likeCount
+        likes {
+          _id
+          username
+        }
+      }
     }
   }
 `;

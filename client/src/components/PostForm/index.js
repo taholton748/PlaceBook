@@ -18,14 +18,22 @@ const NewPostModal = () => {
     update(cache, { data: createPost }) {
 
       try {
-        const { currentUser } = cache.readQuery({ query: QUERY_CURRENT_USER });
+        const { getCurrentUser } = cache.readQuery({ query: QUERY_CURRENT_USER });
+        console.log(getCurrentUser);
         cache.writeQuery({
           query: QUERY_CURRENT_USER,
-          data: { user: { ...user, posts: [...user.posts, createPost] } }
+          data: { getCurrentUser: { ...getCurrentUser, posts: [...getCurrentUser.posts, createPost] } }
         });
       } catch (e) {
+        console.log(e);
         console.warn('First post insertion by user!');
       }
+
+      const { posts } = cache.readQuery({ query: QUERY_POSTS });
+      cache.writeQuery({
+        query: QUERY_POSTS,
+        data: { posts: { createPost, ...posts } }
+      });
     }
   });
 

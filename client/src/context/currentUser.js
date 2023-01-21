@@ -16,7 +16,7 @@ export const useCurrentUserContext = () => useContext(CurrentUserContext);
 
 export default function CurrentUserContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState({ isAuthenticated: false });
-  const [cookies, setCookies, removeCookies] = useCookies(['token', 'user']);
+  const [cookies, setCookies, removeCookies] = useCookies(['auth_token']);
   const navigate = useNavigate();
 
   useEffect(() => {

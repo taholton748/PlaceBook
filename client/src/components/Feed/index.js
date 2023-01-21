@@ -6,7 +6,8 @@ import { Feed, Icon } from 'semantic-ui-react';
 
 export default function PostFeed({ posts }) {
   console.log(posts);
-  if (!posts.length) {
+
+  if (!posts) {
     return <h3>Make some friends to see their posts!</h3>;
   }
 

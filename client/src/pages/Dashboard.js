@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import Auth from '../auth/auth';
 
 import PostFeed from '../components/Feed';
 import PostForm from '../components/PostForm';
@@ -12,16 +11,12 @@ export default function Dashboard() {
   // use useQuery hook to make query request
   const { loading, error, data } = useQuery(QUERY_POSTS);
   // console.log('Error ---', JSON.stringify(error, null, 2));
-  console.log('Data ---', data);
 
   // use object destructuring to extract `data` from the `useQuery` Hook's response and
   // rename it `userData` to be more descriptive
   const { data: userData } = useQuery(QUERY_CURRENT_USER);
 
   const posts = data?.getPosts || [];
-  console.log('Posts ---', posts);
-
-  const loggedIn = Auth.loggedIn();
 
   return (
     <div>
